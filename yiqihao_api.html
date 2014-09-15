@@ -1,0 +1,6742 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>![logo](http://www.yiqihao.com/public/hao/img/logo.png)
+
+一起好API (2014/01</title>
+
+</head>
+<body>
+<p><img src="http://www.yiqihao.com/public/hao/img/logo.png" alt="logo" /></p>
+
+<h2>一起好API (2014/01/15 18:52:12 - Oopos)</h2>
+
+<hr />
+
+<p><strong>一、公共API及参数说明</strong></p>
+
+<ul>
+<li><p>接口约定</p>
+
+<p>  1) 接口中的字段若包含资源文件，如：图片、文档等，比如：/public/hao/img/logo.png，以/开头需要加上
+  服务器域名构造完整url进行请求，以http://,https://等开头则可以直接请求。</p>
+
+<p>  2) 如果不采用COOKIE机制来进行会话，则所有请求都必须先获取session_key并作为参数带上去，login或auth成功后需要刷新session_key。</p>
+
+<p>  3) 如果是手机客户端或AJAX请求，请带上format参数，建议设置为json格式。</p></li>
+<li><p>公共参数及请求约定</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">format      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   默认为：web方式,暂时支持json,xml两种格式</td>
+</tr>
+<tr>
+<td align="left">session_key </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   当使用/user/auth接口进行会话后,必须带上</td>
+</tr>
+<tr>
+<td align="left">client      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   客户端/版本-平台/系统版本号，如：yqhmobile/1.0.0-ios/7.0.4，移动客户端需带上</td>
+</tr>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">date        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   日期，格式：yyyy-mm-dd，如：2012-12-12</td>
+</tr>
+<tr>
+<td align="left">sdate       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   开始日期，如：2012-12-12</td>
+</tr>
+<tr>
+<td align="left">edate       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   截止日期，如：2012-12-12</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data":{/*数据字段*/
+              "list":[],/*数据列表*/
+              "addtime": "添加时间",
+              "uptime": "更新时间",
+          },
+      "page": {/*分页字段*/
+              "size": 1,/*每页大小*/
+              "count": 675,/*记录数*/
+              "total": 675,*总页数*/
+              "now": 1,/*当前页*/
+              "prev": 0,/*上一页*/
+              "next": 2,/*下一页*/
+              "up": 1,/*上一屏起始页码*/
+              "down": 11,/*下一屏起始页码*/
+              "list": [/*页码列表*/
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          },
+      "msg": "成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "验证码不正确",
+      "use_captcha": 1,/*存在此项时，则必须带上验证码请求*/
+  }
+</code></pre>
+
+<p>  XML:</p>
+
+<pre><code>  --- 成功 ---
+  &lt;?xml version="1.0" encoding="utf-8"?&gt;
+  &lt;ops&gt;
+      &lt;return&gt;1&lt;/return&gt;
+      &lt;msg&gt;成功&lt;/msg&gt;
+  &lt;/ops&gt;
+
+  --- 失败 ---
+  &lt;?xml version="1.0" encoding="utf-8"?&gt;
+  &lt;ops&gt;
+      &lt;return&gt;0&lt;/return&gt;
+      &lt;errmsg&gt;不正确&lt;/errmsg&gt;
+      &lt;use_captcha&gt;1&lt;/use_captcha&gt;&lt;!--存在此项时，则必须带上系统验证码--&gt;
+  &lt;/ops&gt;
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取系统验证码图片 /get/captcha</p>
+
+<ul>
+<li>特别说明： 必须通过 f=1 或 type=bid 投标验证码</li>
+<li><p>请求方式: GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">w       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   图片宽度，默认为100</td>
+</tr>
+<tr>
+<td align="left">h       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   图片高度，默认为35</td>
+</tr>
+<tr>
+<td align="left">c       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   字体颜色（#开头 或者 blue,red...）</td>
+</tr>
+<tr>
+<td align="left">t       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   图片类型，可以是：png,jpg,gif等</td>
+</tr>
+<tr>
+<td align="left">f       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   1-数字验证码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： 图片资源，默认为png图片</p>
+
+<p>  <img src="http://www.yiqihao.com/get/captcha" alt="alt &quot;验证码&quot;" /></p></li>
+</ul>
+</li>
+<li><p>发送短信验证码 /send/smscode/[type] or ?type=[type]</p>
+
+<ul>
+<li><p>请求方式： GET | POST
+  参数名  |   类型    |   必需    |   说明
+  :---    |   :---:   |   :---:   |   :---
+  type    |   string  |   是      |   短信验证码类型，可以是：reg,auth,bankcard,getpwd,drawcash等
+  captcha |   string  |   否      |   系统验证码, 当系统要求时需带上
+  mobile  |   string  |   否      |   手机号，当type=reg,auth时才需带上
+  money   |   string  |   否      |   当type=drawcash时才需带上
+  retry   |   int     |   否      |   当重试发送时，需要带上，第一次重试retry=1，第二次retry=2，以次类推</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "发送短信成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "验证码不正确",
+      "use_captcha": 1,/*存在此项时，则必须带上验证码请求*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>发送邮件验证码 /send/emailcode/[type] or ?type=[type]</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   邮件证码类型，可以是：reg,login,getpwd等</td>
+</tr>
+<tr>
+<td align="left">captcha </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   系统验证码, 当系统要求时需带上</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "发送短信成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "验证码不正确",
+      "use_captcha": 1,/*存在此项时，则必须使用验证码登录*/
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>二、用户及权限</strong></p>
+
+<ul>
+<li><p>登录 /user/login</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">account     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   账号，可以是手机号、邮箱等</td>
+</tr>
+<tr>
+<td align="left">password    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   密码</td>
+</tr>
+<tr>
+<td align="left">captcha     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   验证码，当系统要求验证码时必须带上</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,/*返回值,0-&gt;出错,1-&gt;成功*/
+      "redirect": "/", /*跳转URL*/
+      "data": {
+          "uid": "100008",
+          "umobile": "1862118****", /*不为空，表示手机已经认证*/
+          "uname": "oopos",
+          "uemail": "****opos@gmail.com", /*不为空，表示邮箱已经认证*/
+          "idcard": "36072********251", /*身份证号*/
+          "realname": "王五", /*真实姓名*/
+          "amount": "106873855.34", /*可用余额*/
+          "freeze": "872632.64", /*冻结金额*/
+          "feedraw": "106583331.34",
+          "pnr": "2",
+          "pnrid": "100008",
+          "credit_amount": "0",
+          "credit_used": "0",
+          "credit": "0",
+          "score": "100819.0",
+          "avlscore": "98401.4",
+          "avatar": "upload/avatar/8/100008_avatar_[size].jpg",
+          "vip": "3",/*会员等级：0-普通会员,2-银牌会员,3-金牌会员,8-白金会员*/
+          "viptime": "0",
+          "status": "11",
+          "province": "上海", /*所在地区*/
+          "auth_idcard": "1", /*是否实名认证：0-未认证，1-已认证*/
+          "draw_quick": "0",
+          "invite_uid": "0",
+          "invite_money": "0.00",
+          "last_login_time": "1358826156",
+          "last_login_ip": "127.0.0.1",
+          "login_count": "346",/*登陆次数*/
+          "login_time": "1383616081",
+          "login_ip": "111.173.15.126",
+          "error_count": "0", /*登录错误次数*/
+          "error_time": "1383544813",
+          "addtime": "1348796489",
+          "uptime": "1382792740",
+          "version": "705",
+          "msg_bid_sms": "1", /*是否接收放款短信: 1-接收*/
+          "msg_repay_sms": "1", /*是否接收还款短信: 1-接收*/
+          "msg_push_sms": "1", /*是否接收推送短信：1-接收*/
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "账号不存在或密码错误",
+      "use_captcha": 1,/*存在此项时，则必须使用验证码登录*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取会话密钥 /user/auth</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">account     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   账号，可以是手机号、邮箱</td>
+</tr>
+<tr>
+<td align="left">password    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   密码，当使用/user/auth返回的auto_pwd作为密码时，可以使用用户名登录</td>
+</tr>
+<tr>
+<td align="left">captcha     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   验证码，当系统要求验证码时必须带上</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： 请参考 /user/login, 只是增加了session_key,auto_pwd,push_server返回</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "session_key": "100008:029548dbe961ed0ce1b257087af6f8a0:PXvrC__MkPvhRiLIjLXfWDB5zXqlPGxLIYJm79jkTgNAtb2aa_1SLiJkWPCdZwI_yhsNbGp-t-XFVfCzxFgfWY8YleZA55xmMnvR9-iql20.", /*会话key*/
+      "push_server": {
+          "public": "http://10.0.0.88:88/notify/test-public",/*公共消息通道*/
+          "user": "http://10.0.0.88:88/notify/test-100008"/*私有消息通道*/
+      },
+      "auto_pwd": "fb56d4904e0f96e4f650d627ae6384a4eed6de9d",/*自动登录密码*/
+      "data": {
+          /*参考/user/login*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>登出、注销 /user/logout</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p></li>
+<li><p>返回结果： JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  ---  成功 ---
+  {
+      "return": 1,
+      "msg": "登出成功"
+  }
+
+  ---  失败 ---
+  {   
+      "return": 0,
+      "errmsg": "登出失败"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取会话session_key或session_id：/user/session_key或/user/session_id</p>
+
+<ul>
+<li>请求方式：GET</li>
+<li><p>返回结果：JSON | XML</p>
+
+<pre><code>  ---  成功 ---
+  {
+      "return": 1,
+      "session_key": "0:73b681650807fb6d85e9945d718ef859:"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>注册 /user/reg/[method] method可以是空、mobile、email，默认为mobile</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">mobile      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   手机号</td>
+</tr>
+<tr>
+<td align="left">name        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   用户名或昵称</td>
+</tr>
+<tr>
+<td align="left">email       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   邮箱</td>
+</tr>
+<tr>
+<td align="left">realname    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   真实姓名</td>
+</tr>
+<tr>
+<td align="left">password    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   密码</td>
+</tr>
+<tr>
+<td align="left">captcha     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   验证码,不支持COOKIE时,需要先获取session_key，然后带上session_key=获取</td>
+</tr>
+<tr>
+<td align="left">smscode     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   短信验证码，当使用手机注册时需带上</td>
+</tr>
+<tr>
+<td align="left">emailcode   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   邮件验证码，当使用邮箱注册时需带上</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON | XML
+  JSON:</p>
+
+<pre><code>  ---  成功 ---
+  {
+      "return": 1,
+      "data": {
+          "umobile": "18621181113",
+          "uname": "ops2014",
+          "addtime": 1345198794,
+          "addip": "127.0.0.1",
+          "uid": "10",
+          "freeze": "0.00",
+          "amount": "0.00",
+          "score": "0",
+          "credit": "0"
+      }
+  }
+
+  ---  失败 ---
+  {
+      "return": 0,
+      "errmsg": "手机号已存在"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>找回密码 /user/getpwd/[method]，method可以是mobile,email，默认为mobile</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">method      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   找回方式，可以是mobile、method，默认为mobile</td>
+</tr>
+<tr>
+<td align="left">mobile      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   手机号码，当使用mobile方式时需带上</td>
+</tr>
+<tr>
+<td align="left">email       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   手机号码，当使用email方式时需带上</td>
+</tr>
+<tr>
+<td align="left">type        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   密码类型：pay-支付密码, login-登录密码</td>
+</tr>
+<tr>
+<td align="left">password    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   原登录密码，当找回支付密码时需带上</td>
+</tr>
+<tr>
+<td align="left">newpassword </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   要设置的支付、登录新密码</td>
+</tr>
+<tr>
+<td align="left">newpassword2</td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   要设置的支付、登录新密码</td>
+</tr>
+<tr>
+<td align="left">smscode     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   短信校验码：获取/user/smscode/getpwd?mobile=</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "新的支付密码已设置成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "短信校验码不正确",
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取用户信息 /user/getinfo</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+
+  {
+      "return": 1,
+      "data": {
+          "uid": "100008",
+          "umobile": "1862118****",
+          "omobile": "",
+          "uname": "oopos",
+          "uemail": "***opos@gmail.com",
+          "idcard": "36072*********5251",
+          "realname": "张东",
+          "amount": "1974.57",
+          "freeze": "0.00",
+          "feedraw": "0.00",
+          "vcredit": "100000.00",
+          "avcredit": "100000.00",
+          "pnr": "0",
+          "pnrid": "000004494247",
+          "pnrlogin": "100008",
+          "pnrcard": "62284806053****7216",
+          "pnramt": "50.00",
+          "expamt": "0",
+          "credit_amount": "0",
+          "credit_used": "0",
+          "credit": "0",
+          "score": "12913.1",
+          "avlscore": "8113.1",
+          "avatar": "upload/avatar/8/100008_avatar_[size].jpg",
+          "vip": "8",
+          "viptime": "0",
+          "hviptime": "1367341221",
+          "status": "11",
+          "province": "上海",
+          "auth_idcard": "0",
+          "draw_quick": "1",
+          "invite_uid": "0",
+          "invite_money": "0.00",
+          "last_login_time": "1383624587",
+          "last_login_ip": "183.94.72.79",
+          "login_count": "1515",
+          "login_time": "1383641780",
+          "login_ip": "111.173.15.126",
+          "error_count": "0",
+          "error_time": "1383470607",
+          "addtime": "1348796489",
+          "uptime": "1383117525",
+          "version": "966",
+          "msg_bid_sms": "1", /*是否接收放款短信: 1-接收*/
+          "msg_repay_sms": "1", /*是否接收还款短信: 1-接收*/
+          "msg_push_sms": "1", /*是否接收推送短信：1-接收*/
+          "tender_count": 118, /*投标次数*/
+          "loan_count": 0, /*贷款次数*/
+          "invest_tendering": 0, /*投标中的投资数量*/
+          "invest_repaying": 19, /*还款中的投资数量*/
+          "invest_ok": 97, /*完成还款的投资数量*/
+          "invest_interest": "29005.88", /*累计赚取利息收益*/
+          "wait_return_amount": "150986.92", /*待收总额*/
+          "wait_repay_amount": "0.00", /*待还总额*/
+          "avatar_url": "/public/upload/avatar/8/100008_avatar_100x100.jpg",
+          "autobid": 1 /*是否开启自动投标,1-开启,0-未开启*/
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "用户未登录"
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>三、贷款相关</strong></p>
+
+<ul>
+<li><p>申请贷款 /loan/post</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">title       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款标题，长度：2~30个汉字</td>
+</tr>
+<tr>
+<td align="left">img         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款图片地址(系统图片序号范围：1~999)，长度：1~128字节</td>
+</tr>
+<tr>
+<td align="left">use_type    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   贷款用途</td>
+</tr>
+<tr>
+<td align="left">amount      </td>
+<td align="center">   double  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款金额</td>
+</tr>
+<tr>
+<td align="left">deadline    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   贷款期限，范围1~36</td>
+</tr>
+<tr>
+<td align="left">apr         </td>
+<td align="center">   double  </td>
+<td align="center">   是      </td>
+<td align="left">   年利率</td>
+</tr>
+<tr>
+<td align="left">repay_method</td>
+<td align="center">   char    </td>
+<td align="center">   是      </td>
+<td align="left">   还款方式，取值：m-等额本息,i-按月付息,e-到期还本息</td>
+</tr>
+<tr>
+<td align="left">exptime     </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   筹标期限，默认为：3天</td>
+</tr>
+<tr>
+<td align="left">description </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款描述，长度：6~10240 字节</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "id": "100001", /*贷款编号*/
+      "url": "/loan/up", /*跳转URL*/
+      "msg": "贷款申请已提交，请尽快上传认证材料"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "贷款提交失败"
+  }
+  或
+  {
+      "return": 0,
+      "errmsg": "贷款XX不正确"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款列表 /loan/list</p>
+
+<ul>
+<li><p>请求方式: POST | GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   贷款列表类别，all-全部(默认),new-最新,newok-最近成功,newfull-满标待审</td>
+</tr>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">sort        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   排序：[type]-[asc|desc],如:amount-asc，type可以是：amount,deadline,apr,credit,progress,exptime</td>
+</tr>
+<tr>
+<td align="left">keyword     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   搜索关键词, 暂时只搜索：贷款标题</td>
+</tr>
+<tr>
+<td align="left">credit      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   信用等级，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:3-表示3星以上</td>
+</tr>
+<tr>
+<td align="left">apr         </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   收益率，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:12-表示12以上</td>
+</tr>
+<tr>
+<td align="left">deadline    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   期限，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:-1表示1个月内</td>
+</tr>
+<tr>
+<td align="left">exptime     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   剩余时间，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:-1表示1天内</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+
+  {
+      "return": 1,
+      "data": {
+          /*默认分页*/
+          "page": {
+              "size": 10,
+              "count": 168,
+              "total": 17,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          },
+          /*贷款列表*/
+          "list": [
+              {
+                  "lid": "100209",
+                  "plid": "100206",
+                  "uid": "100707",
+                  "title": "资金周转续借25万",
+                  "img": "/public/upload/loanimg/7/100707_mf0mre494026_100x100.jpg",
+                  "use_type": "1",
+                  "amount": "20000",
+                  "remain_amount": "0.00",
+                  "return_amount": "0.00",
+                  "repay_num": "0",
+                  "late_fee": "0.00",
+                  "early_fee": "0.00",
+                  "mfee_rate": "0.50",
+                  "tender_amount": "20000",
+                  "tender_min": "0",
+                  "tender_max": "0",
+                  "tender_limit_times": "0",
+                  "tender_count": "1",
+                  "tender_begin": "1357816862",
+                  "tender_end": "1357816881",
+                  "deadline": "1",
+                  "deadline_type": "m",
+                  "apr": "20.00",
+                  "reward_apr": "3.00",
+                  "reward_money": "0",
+                  "repay_method": "m",
+                  "progress": "100",
+                  "exptime": "1358076062",
+                  "begintime": "1357816862",
+                  "endtime": "0",
+                  "status": "32",
+                  "ostatus": "1",
+                  "auto": "0",
+                  "addtime": "1357816856",
+                  "uptime": "1357816881",
+                  "paytime": "0",
+                  "uname": "wangsongquan",
+                  "credit": "0",
+                  "score": "0.0",
+                  "province": "湖北",
+                  "month_reward_apr": "0.25",
+                  "remaintime": "-9天-21时-6分",
+                  "credit_star": 0,
+                  "repay_method_name": "按月等额本息",
+                  "use_type_name": "短期周转"
+              },
+              {
+                  "lid": "100206",
+                  "plid": "100205",
+                  "uid": "100707",
+                  "title": "资金周转续借25万",
+                  "img": "/public/upload/loanimg/7/100707_mf0mre494026_100x100.jpg",
+                  /*…*/
+                  "use_type_name": "短期周转"
+              },
+              /*…*/
+           ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情 /loan/detail/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid          </td>
+<td align="center">  string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号lid</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "lid": "103020", /*贷款编号*/
+          "plid": "0",
+          "uid": "109787", /*贷款用户uid*/
+          "title": "劳务公司短期周转100万",
+          "img": "/public/upload/loanimg/37/109787_mxis4d363166_100x100.jpg",
+          "type": "1", /*标类型*/
+          "is_flow": "0", /*是否流转标*/
+          "is_field": "1", /*是否实地认证*/
+          "is_plan": "1", /*是否本息保障*/
+          "is_okout": "1",
+          "is_newbie": "0", /*是否为新手标*/
+          "no_captcha": "0", /*是否不需要投标验证码*/
+          "use_type": "1", /*贷款用途类型*/
+          "amount": "1000000",
+          "remain_amount": "1000000.00",
+          "return_amount": "0.00",
+          "repay_num": "0",
+          "late_fee": "0.00",
+          "early_fee": "0.00",
+          "fee_rate": "0.0",
+          "mfee_rate": "0.50",
+          "field_fee": "0.00",
+          "credit_fee": "0.00",
+          "other_fee": "0.00",
+          "tender_amount": "1000000",
+          "flow_amount": "0",
+          "repo_amount": "0",
+          "flow_date": "0",
+          "tender_min": "0",
+          "tender_max": "200000",
+          "tender_limit_times": "0",
+          "tender_count": 103,
+          "tender_begin": "1386561601",
+          "tender_end": "1386561603",
+          "deadline": "1", /*期限*/
+          "deadline_type": "m", /*期限类型，强制为按月计算*/
+          "days": "0", /*days不为0，表示为天标*/
+          "apr": "21.08",
+          "reward_apr": "0.00",
+          "reward_money": "0",
+          "repay_method": "i",
+          "progress": "100",
+          "exptime": "1386820801",
+          "begintime": "1386561661",
+          "endtime": "0",
+          "status": "41",
+          "ostatus": "1",
+          "auto": "1", /*是否被自动投标过*/
+          "description": "一.基本情况描述:\n       借款人经营一家劳务有限公司，以园林建造,建筑工程承包,劳务派遣等为主要业务的综合性劳务公司,公司自成立以来，成绩显著，信誉度高.先后与十多家企业单位进行合作，已完成各大小市政项目共100多项.借款人已结婚，已提供结婚证（详见图片02），东风车一辆（详见图片06、07），两证齐全面积约396.58平米住房一栋，已提供房产两证（详见图片08、09）.\n\n二.借款用途：\n      此次借款因与某企业单位合作的建筑工程承包项目前已进行到收尾阶段，还需资金周转.\n\n三.提供资料: \n     1.身份证(详见图片01) 2.结婚证（详见图片02）3.营业执照（详见图片03）4.税务登记证（详见图片04）5.资质证书（详见图片05）\n\n四.外勤考察地方:\n     外勤组同事对借款人住房，建筑工程进行了现场确认查看. \n\n五.风控审核\n      风控对借款人提供的资料.及外勤组同事考核结果进行综合审核分析，给予授信额度100万.（备注：1/3；方式：2）",
+          "lrealname": "",
+          "lidcard": "",
+          "lno": "",
+          "addtime": "1386559453",
+          "uptime": "1386561603",
+          "paytime": "0",
+          "uname": "chenyanbing",
+          "avatar": "https://yiqihao.com/public/upload/avatar/37/109787_avatar_200x200.jpg",
+          "credit": "5",
+          "score": "0.0",
+          "province": "湖北",
+          "fulldate": "2013-12-09 12:00",
+          "begindate": "2013-12-09 12:01:01",
+          "tender_begindate": "2013-12-09 12:00",
+          "remaintime": "02天23时34分",
+          "credit_star": 100,
+          "repay_method_name": "按月付息，到期还本",
+          "use_type_name": "短期周转",
+          "statusname": "还款中",
+          "repay_amount": 1017566.67,
+          "month_repay_interest": "17566.67",
+          "last_repay_money": 1017566.67,
+          "manage_fee": "5000.00",
+          "remain_time": 257689,
+          "bid_money": 100,
+          "bid_interest": "1.76",
+          "can_access": 0,
+          "show_contract": 0,
+          "show_repay": 0,
+          "repay_money": 0,
+          "repay_progress": 0, /*还款进度*/
+          "show_track": 0,
+          "show_photo": 0,
+          "comment_count": 7,
+          "show_comment_btn": 1,
+          "waittime": 0,
+          "waitpay": 0,
+          "costtime": "2秒", /*满标耗时*/
+          "record": { /*贷款记录*/
+              "post": 1,
+              "success": 1,
+              "ok": 0,
+              "overdue": 0,
+              "soverdue": 0,
+              "repay": "1017566.67",
+              "borrow": "1000000.00",
+              "return": "0.00",
+              "waitrepay": "0.00",
+              "lend": "0.00",
+              "moverdue": "0.00"
+          },
+          "authlist": { /*审核记录*/
+              "idcard": {
+                  "type": "身份证认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "job": {
+                  "type": "工作认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "credit": {
+                  "type": "信用报告",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "income": {
+                  "type": "收入认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "estate": {
+                  "type": "房产认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "car": {
+                  "type": "购车认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "married": {
+                  "type": "结婚证明",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "education": {
+                  "type": "学历认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "residence": {
+                  "type": "居住地证明",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "field": {
+                  "type": "实地认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              },
+              "others": {
+                  "type": "其他材料认证",
+                  "status": "21",
+                  "uptime": "1386559591",
+                  "date": "2013-12-09",
+                  "ok": 1
+              }
+          },
+          "userinfo": { /*贷款用户信息*/
+              "uid": "109787",
+              "auth_realname": "0",
+              "auth_mobile": "0",
+              "auth_email": "0",
+              "auth_avatar": "0",
+              "gender": "1",
+              "auth_gender": "0",
+              "birthdate": "1972-10-08",
+              "auth_birthdate": "0",
+              "idcard_province": "420000",
+              "idcard_city": "420100",
+              "province": "420000",
+              "city": "420100",
+              "district": "0",
+              "address": "",
+              "auth_address": "0",
+              "address_phone": "",
+              "auth_address_phone": "0",
+              "education": "大专",
+              "auth_education": "0",
+              "graduated_year": "0",
+              "auth_graduated_year": "0",
+              "graduated_school": "",
+              "auth_graduated_school": "0",
+              "marriage": "1",
+              "auth_marriage": "0",
+              "have_child": "1",
+              "auth_have_child": "0",
+              "have_house": "1",
+              "auth_have_house": "0",
+              "house_loan": "2",
+              "auth_house_loan": "0",
+              "have_car": "1",
+              "auth_have_car": "0",
+              "car_brand": "",
+              "auth_car_brand": "0",
+              "car_year": "0",
+              "auth_car_year": "0",
+              "car_loan": "2",
+              "auth_car_loan": "0",
+              "job_company": "",
+              "auth_job_company": "0",
+              "job_type": "私营企业主",
+              "auth_job_type": "0",
+              "job_company_type": "一般民营企业",
+              "auth_job_company_type": "0",
+              "job_company_scale": "50-100人",
+              "auth_job_company_scale": "0",
+              "job_industry": "建筑工程",
+              "auth_job_industry": "0",
+              "job_title": "法人代表",
+              "auth_job_title": "0",
+              "job_salary": "100000元以上",
+              "auth_job_salary": "0",
+              "job_years": "5年以上",
+              "auth_job_years": "0",
+              "job_email": "",
+              "auth_job_email": "0",
+              "job_province": "420000",
+              "auth_job_province": "0",
+              "job_city": "420100",
+              "auth_job_city": "0",
+              "job_company_address": "",
+              "auth_job_company_address": "0",
+              "job_company_phone": "",
+              "auth_job_company_phone": "0",
+              "family_name": "",
+              "auth_family_name": "0",
+              "family_who": "",
+              "auth_family_who": "0",
+              "family_phone": "",
+              "auth_family_phone": "0",
+              "other_name": "",
+              "auth_other_name": "0",
+              "other_who": "",
+              "auth_other_who": "0",
+              "other_phone": "",
+              "auth_other_phone": "0",
+              "addtime": "0",
+              "uptime": "0",
+              "status": "11",
+              "age": 41,
+              "job_province_name": "湖北省",
+              "job_city_name": "武汉市"
+          }
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "贷款不存在"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>投标操作 /loan/bid/[lid]  or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   投标金额</td>
+</tr>
+<tr>
+<td align="left">captcha     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   当贷款返回no_captcha=0时需要投标验证码: 通过/get/captcha?type=bid 获取</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "投标成功"
+      /*"msg": "投标部分成功, 有效投标金额为：￥1000.00"*/
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "此标已经不能投了",
+      /*
+      "errmsg": "自动投标还未投完，请稍候。。。"
+      "errmsg": "投标失败"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-投标记录 /loan/tender_list/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：100，取值：1~100</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "tid": "98745",
+                  "ptid": "0",
+                  "lid": "103020",
+                  "uid": "108089",
+                  "money": "20000",
+                  "auto": "1", /*是否为自动投标*/
+                  "auto_money": "20000",
+                  "addtime": "1386561601",
+                  "status": "21",
+                  "bidtime": "1386561601", /*投标时间*/
+                  "uptime": "1386561661",
+                  "uname": "hope_zou", /*投标人*/
+                  "no": 1, /*投标序号*/
+                  "datetime": "2013-12-09 12:00:01", /*投标日期*/
+                  "lastdatetime": "2013-12-09 12:00:01",
+                  "normal_money": 0
+              },
+              {
+                  "tid": "98746",
+                  "ptid": "0",
+                  "lid": "103020",
+                  "uid": "102793",
+                  "money": "3950",
+                  "auto": "1",
+                  "auto_money": "3950",
+                  "addtime": "1386561601",
+                  "status": "21",
+                  "bidtime": "1386561601",
+                  "uptime": "1386561661",
+                  "uname": "fengyunldy",
+                  "no": 2,
+                  "datetime": "2013-12-09 12:00:01",
+                  "lastdatetime": "2013-12-09 12:00:01",
+                  "normal_money": 0
+              }
+          ],
+          "page": {
+              "size": 2,
+              "count": 103,
+              "total": 52,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          },
+          "uid": 0 /*当前会话用户uid*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-发表评论 /loan/comment_add/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+<tr>
+<td align="left">pid         </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   要回复的留言编号</td>
+</tr>
+<tr>
+<td align="left">content     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   留言内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "pid": 0, /*回复留言id*/
+          "lid": 101573,
+          "uid": "100008",
+          "content": "12345678", /*留言内容*/
+          "addtime": 1386565859,
+          "status": 1,
+          "id": 5485, /*留言id*/
+          "uname": "oopos", /*评论人*/
+          "date": "2013-12-09 13:10:59", /*评论时间*/
+          "avatar": "/public/upload/avatar/8/100008_avatar_100x100.jpg" /*评论人头像*/
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "你暂时没有留言权限"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-删除评论 /loan/comment_del/[id] or lid=[lid] （注：此接口只有当会话uid为100001,100008,100677 才显示删除按扭)</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   留言编号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "删除成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "无操作权限"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-评论列表 /loan/comment_list/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "15920",
+                  "pid": "0",
+                  "lid": "103020",
+                  "uid": "100559",
+                  "content": "居然抢到了，倒数第二，没有白等！",
+                  "addtime": "1386562877",
+                  "status": "1",
+                  "uname": "angeloangelo",
+                  "avatar": "/public/hao/themes/default/images/64x64.jpg",
+                  "date": "2013-12-09 12:21:17"
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 7,
+              "total": 7,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 7,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+              ]
+          },
+          "uid": "109787",
+          "aid": 1,
+          "luid": "109787"
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "用户未登录或会话已过期"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-贷款人相关资料图片 /loan/photo_list/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "public_url": "https://yiqihao.com/public", /*图片地址前缀，当list.url是相对地址upload/的时候拼接*/
+          "list": [
+              {
+                  "id": "4767",
+                  "no": "0",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/photo/52a50f7faa7fe_600x350.jpg", /*图片地址*/
+                  "remark": "图片01：借款人基础资料-身份证.jpg", /*图片备注*/
+                  "addtime": "1386549120",
+                  "uptime": "0",
+                  "status": "1"
+              },
+              {
+                  "id": "4768",
+                  "no": "0",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/photo/52a50f7fd1327_600x350.jpg",
+                  "remark": "图片02：借款人基础资料-营业执照.jpg",
+                  "addtime": "1386549120",
+                  "uptime": "0",
+                  "status": "1"
+              }
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-流转标借款合同及打款记录图片 /loan/binfo_list/[lid] or ?lid=[lid] (只有当前标是流转标loan.is_flow=1时才需要调用这个接口)</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "public_url": "https://yiqihao.com/public", /*默图片地址前缀，当list.url是相对地址upload/的时候拼接*/
+          "list": [
+              {
+                  "id": "126",
+                  "no": "1",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/binfo/52a521084ccf1_400x300.jpg",
+                  "type": "借款合同", /*图片类型*/
+                  "addtime": "1386553609",
+                  "uptime": "0",
+                  "status": "1"
+              },
+              {
+                  "id": "127",
+                  "no": "2",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/binfo/52a521087d88f_400x300.jpg",
+                  "type": "借款合同",
+                  "addtime": "1386553609",
+                  "uptime": "0",
+                  "status": "1"
+              },
+              {
+                  "id": "128",
+                  "no": "3",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/binfo/52a52108af126_400x300.jpg",
+                  "type": "借款合同",
+                  "addtime": "1386553609",
+                  "uptime": "0",
+                  "status": "1"
+              },
+              {
+                  "id": "129",
+                  "no": "4",
+                  "lid": "103018",
+                  "uid": "100844",
+                  "url": "upload/loan/103018/binfo/52a52108dfbd9_400x300.jpg",
+                  "type": "打款记录",
+                  "addtime": "1386553609",
+                  "uptime": "0",
+                  "status": "1"
+              }
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-还款详情 /loan/repay_list/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "lid": "103018", /*贷款编号*/
+                  "no": 1, /*还款编号*/
+                  "time": "1389283199",
+                  "return_amount": "0.00", /*已还金额*/
+                  "remain_amount": "37823.84", /*待还金额*/
+                  "status": "11",
+                  "date": "2014-01-09", /*还款日期*/
+                  "statusname": "还款中" /*状态*/
+              },
+              {
+                  "lid": "103018",
+                  "no": 2,
+                  "time": "1391961599",
+                  "return_amount": "0.00",
+                  "remain_amount": "37823.84",
+                  "status": "11",
+                  "date": "2014-02-09",
+                  "statusname": "还款中"
+              },
+              {
+                  "lid": "103018",
+                  "no": 3,
+                  "time": "1394380799",
+                  "return_amount": "0.00",
+                  "remain_amount": "37823.84",
+                  "status": "11",
+                  "date": "2014-03-09",
+                  "statusname": "还款中"
+              }
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款详情-获取投标信息 /loan/bidinfo/[lid] or ?lid=[lid]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid         </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   贷款编号</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "bid_money": 100, /*每投标bid_money元，可获得收益bid_interest*/
+          "bid_interest": "5.27",
+          "user_amount": "83092.97", /*用户可用余额*/
+          "user_avcredit": "0.00", /*用户可用授信额度*/
+          "need_amount": 994700 /*当前标可投金额*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>最新贷款列表 /loan/newlist</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">limit       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   默认为8</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML (参考三、2 贷款列表)</p></li>
+</ul>
+</li>
+<li><p>推荐贷款列表 /loan/hotlist</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">limit       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   默认为3</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML (参考三、2 贷款列表)</p></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>四、债权转让相关</strong></p>
+
+<ul>
+<li><p>债权转让列表 /transfer/list</p>
+
+<ul>
+<li><p>请求方式: POST | GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   债权转让类别，all-全部(默认),new-最新,newok-最近成功</td>
+</tr>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">sort        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   排序：[type]-[asc|desc],如:apr-asc，type可以是：trans_money,trans_num,apr,exptime</td>
+</tr>
+<tr>
+<td align="left">keyword     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   搜索关键词, 暂时只搜索：贷款标题</td>
+</tr>
+<tr>
+<td align="left">apr         </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   收益率，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:12-表示12以上</td>
+</tr>
+<tr>
+<td align="left">exptime     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   剩余时间，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:-1表示1天内</td>
+</tr>
+<tr>
+<td align="left">trans_num   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   剩余期限，格式：a-b: 表示在a和b之间, a-表示>a,-a表示&lt;a, 如:-1表示1个月内</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "2394",
+                  "tid": "87228",
+                  "uid": "105137",
+                  "ruid": "101204",
+                  "luid": "108679",
+                  "lid": "102793",
+                  "title": "补充流动资金100万第一标25万",
+                  "img": "/public/upload/loanimg/29/108679_mvignf513611_100x100.jpg",
+                  "trans_money": "50.00",
+                  "trans_amount": "49.96",
+                  "trans_interest": "0.27",
+                  "trans_num": "5",
+                  "transpwd": "",
+                  "status": "21",
+                  "exptime": "1386818858",
+                  "addtime": "1386559658",
+                  "uptime": "1386559684",
+                  "oktime": "1386559684",
+                  "tstatus": "21",
+                  "tender_status": "31",
+                  "deadline": "6",
+                  "repay_num": "6",
+                  "money": "50",
+                  "remain_money": "0.00",
+                  "remain_amount": "0.00",
+                  "amount": "250000",
+                  "apr": "22.40",
+                  "repay_method": "i",
+                  "begintime": "1383187142",
+                  "trans_date": "2013-12-09 11:28",
+                  "add_date": "2013-12-09 11:27",
+                  "statusname": "转让成功",
+                  "user": {
+                      "uname": "gaoxin198521",
+                      "credit": "0",
+                      "province": "北京"
+                  },
+                  "luser": {
+                      "uname": "yuanshundi",
+                      "credit": "5",
+                      "province": "湖北"
+                  },
+                  "ruser": {
+                      "uname": "happywind",
+                      "credit": "0",
+                      "province": "北京"
+                  }
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 2097,
+              "total": 2097,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>最新债权转让列表 /transfer/newlist</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">limit       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   默认为8</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML (参考四、1 债权转让列表)</p></li>
+</ul>
+</li>
+<li><p>推荐债权转让列表 /transfer/hotlist</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">limit       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   默认为3</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML (参考四、1 债权转让列表)</p></li>
+</ul>
+</li>
+<li><p>发布债权转让 /user/transfer/post/[id] or /user/transfer/post?id=[id]</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   投标id</td>
+</tr>
+<tr>
+<td align="left">paypwd      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   支付密码</td>
+</tr>
+<tr>
+<td align="left">transpwd    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   承接密码，为空表示不设密码。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "债权转让发布成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "可用积分不足，无法进行债权转让",
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取债权转让详情 /user/transfer/detail/[id] or /user/transfer/detail?id=[id]</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   债权转让ID</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "transfer": {
+              "tid": "29049",
+              "tno": "0",
+              "ptid": "0",
+              "lid": "101573",
+              "slid": "20131120",
+              "scontract": "0",
+              "uid": "100008",
+              "loan_money": "1700", 
+              "loan_apr": "21.08", /*年利率*/
+              "loan_method": "e", /*还款方式*/
+              "loan_time": "1384876800",
+              "money": "250", /*投标金额*/
+              "auto_money": "0",
+              "return_money": "0.00",
+              "remain_money": "250.00", /*剩余本金*/
+              "repay_amount": "263.17",
+              "return_amount": "0.00",
+              "remain_amount": "263.17", /*待还总额*/
+              "num": "3",
+              "repay_num": "0",
+              "start_num": "0",
+              "status": "11",
+              "tstatus": "11",
+              "auto": "0",
+              "addtime": "1387202907",
+              "bidtime": "1384937846",
+              "uptime": "0",
+              "paytime": "0",
+              "addip": "127.0.0.1",
+              "pay_money": "250.00",
+              "is_flow": "1", /*是否是流转标1-是,0-否*/
+              "loan_status": "21",
+              "amount": "1000000",
+              "begintime": "1384937756",
+              "repay_method": "e",
+              "deadline": "3",
+              "apr": 21.08,
+              "reward_apr": "0.00",
+              "title": "流转标100万测试6",
+              "img": "upload/loanimg/8/101108_mewf9o573075_[size].jpg",
+              "luid": "101108",
+              "now_days": 26,
+              "total_days": 30,
+              "remain_days": 66,
+              "remain_num": 3, 
+              "trans_interest": "3.80", /*待结算利息*/
+              "pay_interest": "2.53",
+              "return_interest": "1.26",
+              "wait_interest": "13.17", /*待收利息*/
+              "earn_interest": "1.26", /*承接收益*/
+              "loss_interest": "2.54", /*损失利息*/
+              "trans_return": "251.26",
+              "trans_amount": "252.53", /*转让价格*/
+              "id": "838", /*转让编号id*/
+              "ruid": "-1", /*承接人uid,为-1时表示没有被承接*/
+              "trans_money": "250.00", /*剩余本金*/
+              "trans_num": "3", /*剩余期数*/
+              "transpwd": "", /*当transpwd=1时，需要密码*/
+              "exptime": "1387462107",
+              "oktime": "0",
+              "tender_status": "21",
+              "remain_interest": "10.64",
+              "remain_time": "02天23时59分",
+              "luser": { /*贷款人*/
+                  "uname": "***",
+                  "credit": "5",
+                  "province": "湖北"
+              },
+              "user": { /*转让人*/
+                  "uname": "oopos",
+                  "credit": "0",
+                  "province": "上海"
+              },
+              "add_date": "2013-12-16 22:08" /*发布日期*/
+          },
+          "uid": "100008", /*当前用户uid*/
+          "user_amount": "83092.97" /*当前用户余额*/
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "此债权不在可转让状态"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>承接债权转让 /user/transfer/pay/[id] or /user/transfer/pay?id=[id]</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   债权转让id</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   债权转让价格，带上通过/user/transfer/detail获取的价格trans_amount</td>
+</tr>
+<tr>
+<td align="left">paypwd      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   支付密码</td>
+</tr>
+<tr>
+<td align="left">transpwd    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   承接密码，当该债权转让需要密码上带上。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "承接债权成功，支出：￥100.00"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "债权转让价格已变化，请刷新"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>转让的债权列表 /user/transfer/list</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">sort        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   排序：[type]-[asc|desc],如:apr-asc，type可以是：trans_money,trans_num,apr,exptime</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "1883",
+                  "tid": "13334",
+                  "uid": "100008",
+                  "ruid": "-1",
+                  "luid": "103138",
+                  "lid": "100811",
+                  "title": "商贸公司提货周转30万",
+                  "img": "upload/loanimg/38/103138_mlhvvi262571_[size].jpg", /*图片替换[size]和贷款列表一样*/
+                  "trans_money": "235.49", /*转让本金*/
+                  "trans_amount": "234.29", /*转让价格*/
+                  "trans_interest": "3.06", /*待结算利息*/
+                  "trans_num": "3", /*剩余期数*/
+                  "transpwd": "", /*为1时表示需要密码*/
+                  "status": "2", /*状态值，直接取statusname字段值*/
+                  "exptime": "1384330456",
+                  "addtime": "1384071256",
+                  "uptime": "1384071318",
+                  "oktime": "0",
+                  "slid": "0",
+                  "tstatus": "2",
+                  "tender_status": "21",
+                  "deadline": "9",
+                  "repay_num": "7",
+                  "money": "668",
+                  "remain_money": "158.49",
+                  "remain_amount": "163.06",
+                  "amount": "300000",
+                  "apr": "23.00",
+                  "repay_method": "m",
+                  "begintime": "1366431361",
+                  "add_date": "2013-11-10 16:14", /*发布时间*/
+                  "statusname": "已取消", /*状态*/
+                  "user": { /*转让人*/
+                      "uname": "oopos",
+                      "credit": "0",
+                      "province": "上海"
+                  },
+                  "luser": { /*贷款人*/
+                      "uname": "***",
+                      "credit": "5",
+                      "province": "湖北"
+                  },
+                  "ruser": { /*承接人，当ruid不为-1时，才存在*/
+                      "uname": "test123",
+                      "credit": "0",
+                      "province": "湖北"
+                  }
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 12,
+              "total": 12,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>承接的债权列表 /user/transfer/ok</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p           </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">sort        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   排序：[type]-[asc|desc],如:apr-asc，type可以是：trans_money,trans_num,apr,exptime</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML (参考四、7 转让的债权结果注释)</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "1666",
+                  "tid": "32863",
+                  "uid": "105263",
+                  "ruid": "100008",
+                  "luid": "104584",
+                  "lid": "101729",
+                  "title": "付餐桌椅尾款续借1.78万",
+                  "img": "upload/loanimg/34/104584_mpadlk688377_[size].jpg",
+                  "trans_money": "950.00",
+                  "trans_amount": "956.85",
+                  "trans_interest": "12.92",
+                  "trans_num": "7",
+                  "transpwd": "",
+                  "status": "21",
+                  "exptime": "1382856505",
+                  "addtime": "1382597305",
+                  "uptime": "1382597383",
+                  "oktime": "1382597383",
+                  "slid": "0",
+                  "tstatus": "21",
+                  "tender_status": "31",
+                  "deadline": "9",
+                  "repay_num": "9",
+                  "money": "950",
+                  "remain_money": "0.00",
+                  "remain_amount": "0.00",
+                  "amount": "17800",
+                  "apr": "23.00",
+                  "repay_method": "i",
+                  "begintime": "1375448401",
+                  "trans_date": "2013-10-24 14:49",
+                  "add_date": "2013-10-24 14:48",
+                  "statusname": "转让成功",
+                  "user": {
+                      "uname": "cappuccino",
+                      "credit": "0",
+                      "province": ""
+                  },
+                  "luser": {
+                      "uname": "***",
+                      "credit": "5",
+                      "province": "湖北"
+                  },
+                  "ruser": {
+                      "uname": "oopos",
+                      "credit": "0",
+                      "province": "上海"
+                  }
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 20,
+              "total": 20,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>五、实时财务</strong></p>
+
+<ul>
+<li><p>财务信息 /caiwu/info</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "advance_amount": "1283174.56",/*垫付准备金余额*/
+          "advance_wait": "45139.38",/*未收回垫付金额*/
+          "advance_return": "0.00",/*已收回垫付金额*/
+          "capital_unrepay": "27915159.31",/*待回收本金总额*/
+          "capital_total": "58423800.00",/*交易总额*/
+          "capital_return": "177920690.46",/*已经回收本金总额*/
+          "funds_amount": "6722.77"/*慈善基金余额*/
+          "invest_interest": "6674133.25", /*累计为理财人赚取收益*/
+          "overdue_rate": "28.3", /*逾期率*/
+          "baddebt_rate": "2.8" /*坏账率*/
+      }
+  }   
+</code></pre></li>
+</ul>
+</li>
+<li><p>还款列表 /caiwu/list</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   lt7days: 一周内应回收欠款列表</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">           </td>
+<td align="center">           </td>
+<td align="left">   lt30days: 逾期30天内未归还列表</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">           </td>
+<td align="center">           </td>
+<td align="left">   gt30days: 逾期30天以上未归还列表</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">           </td>
+<td align="center">           </td>
+<td align="left">   laterepay: 逾期已归还列表</td>
+</tr>
+<tr>
+<td align="left">date        </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   返回指定日期date(格式:2013-03-03)数据</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "amount": "2263860.64", /*应归还总额*/
+          "return_amount": "0.00", /*已归还总额*/
+          "remain_amount": "2263860.64", /*待归还总额*/
+          "list": [
+              {
+                  "rid": "2225",
+                  "lid": "101115",
+                  "uid": "104101",
+                  "no": "5",
+                  "time": "1383753599",
+                  "amount": "14183.94", /*应归还金额*/
+                  "picurl": "", /*还款截图url*/
+                  "lateurl": "", /*逾期链接*/
+                  "status": "11",
+                  "oktime": "0",
+                  "paytime": "0",
+                  "uname": "wangjunjun", /*贷款人*/
+                  "date": "2013-11-06", /*应归还日期*/
+                  "remark": ""
+              },
+              /*...*/
+          ],
+          "page": {
+              "size": 10,
+              "count": 14,
+              "total": 2,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 2,
+              "list": [
+                  1,
+                  2
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>六、理财管理</strong></p>
+
+<ul>
+<li><p>我投标的贷款 /user/invest/loan/[status], [status]为空表示全部投标贷款，为tendering表示投标中的贷款，为waiting表示等待放款中的贷款</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "tender_remain_amount": "105.27", /*剩余待收*/
+                  "tender_repay_amount": "105.27", /*应还本息*/
+                  "tender_addtime": "1382796941", /*投标时间*/
+                  "tender_money": "100", /*投标金额*/
+                  "tender_uptime": "0",
+                  "tender_status": "21", /*投标状态：0-失败,2-无效,3-流标,10-待支付,11-成功,21-还款中,31-还款完成*/
+                  "tender_id": "29046", /*投标编号*/
+                  "lid": "101573", /*贷款编号*/
+                  "plid": "101570",
+                  "uid": "101108", /*贷款人uid*/
+                  "aid": "1",
+                  "title": "流转标100万测试6", /*贷款标题*/
+                  "img": "/public/upload/loanimg/8/101108_mewf9o573075_100x100.jpg", /*贷款图片*/
+                  "type": "4",
+                  "is_flow": "1", /*是否为流转标*/
+                  "is_field": "1", /*是否为认证标*/
+                  "is_plan": "1", /*是否本息保障*/
+                  "is_okout": "1",
+                  "is_newbie": "0", /*是否为新手标*/
+                  "no_captcha": "0", 
+                  "use_type": "1", /*贷款用途*/
+                  "amount": "1000000", /*贷款金额*/
+                  "remain_amount": "3600.00",
+                  "return_amount": "0.00",
+                  "repay_num": "0",
+                  "late_fee": "0.00",
+                  "early_fee": "0.00",
+                  "fee_rate": "0.0",
+                  "mfee_rate": "0.50",
+                  "field_fee": "0.00",
+                  "credit_fee": "0.00",
+                  "other_fee": "0.00",
+                  "tender_amount": "3600",
+                  "flow_amount": "3600",
+                  "repo_amount": "0",
+                  "flow_date": "20130726",
+                  "tender_min": "100",
+                  "tender_max": "0",
+                  "tender_limit_times": "0",
+                  "tender_count": "8",
+                  "tender_begin": "1374845019",
+                  "tender_end": "0",
+                  "deadline": "3",
+                  "deadline_type": "m",
+                  "days": "0",
+                  "apr": "21.08",
+                  "reward_apr": "0.00",
+                  "reward_money": "0",
+                  "repay_method": "e",
+                  "progress": 1,
+                  "exptime": "1375104219",
+                  "begintime": "1374845019",
+                  "endtime": "0",
+                  "status": "0",
+                  "ostatus": "1",
+                  "auto": "0",
+                  "remark": "",
+                  "lrealname": "",
+                  "lidcard": "",
+                  "addtime": "1374844931",
+                  "uptime": "1382796941",
+                  "paytime": "0",
+                  "uname": "wanganmao",
+                  "credit": "5",
+                  "province": "湖北", /*贷款所在地区*/
+                  "fulldate": "1970-01-01 08:00",
+                  "begindate": "2013-07-26 21:23:39",
+                  "tender_begindate": "2013-07-26 21:23",
+                  "remaintime": "-99天-12时-11分",
+                  "credit_star": 100,
+                  "repay_method_name": "到期还本息", /*还款方式*/
+                  "use_type_name": "短期周转", /*贷款用途*/
+                  "statusname": null,
+                  "flow_unit": 36,
+                  "repo_unit": 0,
+                  "remain_unit": 9964,
+                  "tender_interest": "5.27" /*预期收益*/
+              }
+          ],
+          "page": {},/*参考一、公共参数里的page字段*/
+          "count": 80,
+          "amount": "21950.92"
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>回收中的投资 /user/invest/repay</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid     </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   指定贷款编号查询</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   起始日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   结束日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "count": {
+              "remain_amount": "156718.12", /*待收本息总额*/
+              "remain_money": "153171.64", /*待收本金总额*/
+              "remain_interest": "3546.49" /*待收利息总额*/
+          },
+          "list": [
+              {
+                  "tid": "27616",
+                  "tno": "0",
+                  "ptid": "23190",
+                  "lid": "101258", /*贷款编号*/
+                  "slid": "0",
+                  "scontract": "0",
+                  "uid": "100008",
+                  "loan_money": "200000",
+                  "loan_apr": "21.60",
+                  "loan_method": "i",
+                  "loan_time": "1372041009",
+                  "money": "102",
+                  "auto_money": "0",
+                  "return_money": "0.00",
+                  "remain_money": "102.00",
+                  "repay_amount": "107.50",
+                  "return_amount": "0.00",
+                  "remain_amount": "107.50",
+                  "num": "3",
+                  "repay_num": "0",
+                  "start_num": "1",
+                  "status": "21",
+                  "tstatus": "0",
+                  "auto": "0",
+                  "addtime": "1372039201",
+                  "bidtime": "1372039201",
+                  "uptime": "1372041009",
+                  "paytime": "0",
+                  "addip": "125.88.122.103",
+                  "pay_money": "102.86",
+                  "amount": "3600.00",
+                  "time": "1374681599",
+                  "no": "1",
+                  "uname": "liujianhong", /*贷款人*/
+                  "credit": "5",
+                  "province": "河北", /*贷款人所在地区*/
+                  "now_amount": "1.83", /*本期回收本息*/
+                  "now_remain": "105.67", /*剩余本息*/
+                  "remain_num": 3,
+                  "repay_date": "2013-07-24", /*下一还款日*/
+                  "out_days": 105, /*逾期天数*/
+                  "out_interest": "1.54", /*逾期罚息*/
+                  "cantrans": 0 /*能否债权转让*/
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 47,
+              "total": 47,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>已回收的投资 /user/invest/return</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="left">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">lid     </td>
+<td align="left">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   指定贷款编号查询</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="left">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   起始日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="left">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   结束日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">size    </td>
+<td align="left">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="left">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "count": {
+              "return_amount": "727681.97", /*本息总额*/
+              "return_money": "707956.00", /*本金总额*/
+              "return_interest": "19725.97" /*利息总额*/
+          },
+          "list": [
+              {
+                  "tid": "28884",
+                  "tno": "0",
+                  "ptid": "0",
+                  "lid": "101568",
+                  "slid": "20130723",
+                  "scontract": "0",
+                  "uid": "100008",
+                  "loan_money": "998900",
+                  "loan_apr": "21.60",
+                  "loan_method": "m",
+                  "loan_time": "1374508800",
+                  "money": "1000",
+                  "auto_money": "0",
+                  "return_money": "1000.00",
+                  "remain_money": "0.00",
+                  "repay_amount": "1036.21",
+                  "return_amount": "1036.21",
+                  "remain_amount": "0.00",
+                  "num": "3",
+                  "repay_num": "3",
+                  "start_num": "0",
+                  "status": "31",
+                  "tstatus": "0",
+                  "auto": "0",
+                  "addtime": "1374575485",
+                  "bidtime": "1374575485",
+                  "uptime": "1374579820",
+                  "paytime": "1374580864",
+                  "addip": "127.0.0.1",
+                  "pay_money": "1000.00",
+                  "begintime": "1374579820",
+                  "apr": "21.60",
+                  "uname": "wanganmao",
+                  "credit": "5",
+                  "province": "湖北",
+                  "begin_date": "2013-07-23",
+                  "end_date": "2013-07-23"
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 63,
+              "total": 63,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>债权转让 (参考：四、债权转让相关/user/transfer)</p></li>
+<li><p>获取自动投标设置 /user/autobid/info</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "uid": "100008",
+          "total": "-1", /*自动投标总额*/
+          "money": "50000", /*单次投标金额*/
+          "retain": "5000000", /*保留可用余额*/
+          "apr_min": "21.0", /*最低利率*/
+          "apr_max": "24.0", /*最高利率*/
+          "month_min": "1", /*最低期限*/
+          "month_max": "3", /*最高期限*/
+          "repay_method": "", /*还款方式：m-按月等额本息;i-按月付息，到期还本;为空表示不限*/
+          "credit_min": "1", /*最低信用等级*/
+          "credit_max": "5", /*最高信用等级*/
+          "status": "1", /*1-已开启,2-已暂停,0-已关闭*/
+          "bidall": "0",
+          "addtime": "0",
+          "uptime": "1382796343239630",
+          "rank": {
+              "no": 8 /*自动投标排名*/
+          },
+          "amount": "2045.14", /*您前面的自动排队资金总额*/
+          "user_amount": "83092.97" /*用户可用余额*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>自动投标设置 /user/autobid/[do] or do=[do] (详细见web版)</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">do          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   操作类型：close-关闭,save-保存,enable-开启</td>
+</tr>
+<tr>
+<td align="left">total       </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   自动投标总额：需为-1或不少于50的整数</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   单次投标金额：需为-1或不小于50且不大于自动投标总额的整数</td>
+</tr>
+<tr>
+<td align="left">apr_min     </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最低年利率：建议设置为12~24</td>
+</tr>
+<tr>
+<td align="left">apr_max     </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最高年利率：建议设置为12~24</td>
+</tr>
+<tr>
+<td align="left">month_min   </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最低贷款期限：有效值是1~36</td>
+</tr>
+<tr>
+<td align="left">month_max   </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最高贷款期限：有效值是1~36</td>
+</tr>
+<tr>
+<td align="left">repay_method</td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   还款方式：""-不限,m-按月等额本息,i-按月付息</td>
+</tr>
+<tr>
+<td align="left">credit_min  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最低信用等级：有效值是1~5</td>
+</tr>
+<tr>
+<td align="left">credit_max  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   最高信用等级：有效值是1~5</td>
+</tr>
+<tr>
+<td align="left">retain      </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   保留可用余额：需为不小于0的整数</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  /*注：返回的rank,amount是为了即时刷新排名和排队总额数据*/
+  {
+      "return": 1,
+      "msg": "开启成功",
+      "rank": {
+          "no": 8 /*自动投标排名*/
+      },
+      "amount": "2045.14" /*您前面的自动排队资金总额*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>理财统计 /user/invest/stat</p>
+
+<ul>
+<li>请求方式： POST|GET</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 --- 
+  {
+      "return": 1,
+      "data": {
+          "lent_times": "37",
+          "lent_amount": "739119.22",
+          "return_amount": "280114.29",
+          "return_money": "265827.00",
+          "remain_amount": "500896.70",
+          "remain_money": "470100.00",
+          "return_times": "32",
+          "remain_times": "5",
+          "return_interest": "14287.29",
+          "remain_interest": "30796.70",
+          "user_wait_amount": "500896.70",
+          "user_interest": "13697.48",
+          "user_wait_money": "470100.00",
+          "user_wait_interest": "30796.70",
+          "user_amount": "21260406.78",
+          "user_freeze": "5081.00",
+          "user_total": "21766384.48",
+          "interest_fee": "589.81",
+          "day_wait": "0.00",
+          "preday_wait": "0.00"
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>资金统计历史列表 /user/invest/count</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名          </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">sdate       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   开始日期</td>
+</tr>
+<tr>
+<td align="left">edate       </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   截止日期</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "483635",
+                  "uid": "100001",
+                  "time": "1375200000",
+                  "total": "0.00",
+                  "remain": "0.00",
+                  "amount": "0.00",
+                  "wait": "0.00",
+                  "addtime": "1375286401",
+                  "datetime": "2013-07-31"
+              },
+              ...
+          ],
+          "page": {
+              "size": 10,
+              "count": 122,
+              "total": 13,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  ...
+              ]
+          }
+      }
+  }   
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取用户积分记录 /user/score/record</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   空或0代表所有记录类型</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   起始日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   结束日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "88953",
+                  "type": "积分提现", /*积分记录类型*/
+                  "uid": "100008",
+                  "rid": "14045",
+                  "lid": "0",
+                  "ruid": "0",
+                  "points": "-160.0", /*操作积分*/
+                  "avlscore": "8667.2", /*可用积分*/
+                  "score": "13947.2", /*总积分*/
+                  "remark": "",
+                  "addtime": "1385710726",
+                  "uptime": "0",
+                  "status": "1",
+                  "datetime": "2013-11-29 15:38:46" /*操作日期*/
+              },
+              {
+                  "id": "86103",
+                  "type": "积分提现",
+                  "uid": "100008",
+                  "rid": "13719",
+                  "lid": "0",
+                  "ruid": "0",
+                  "points": "-160.0",
+                  "avlscore": "8827.2",
+                  "score": "13947.2",
+                  "remark": "",
+                  "addtime": "1385261574",
+                  "uptime": "0",
+                  "status": "1",
+                  "datetime": "2013-11-24 10:52:54"
+              }
+          ],
+          "page": {
+              "size": 2,
+              "count": 114,
+              "total": 57,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>新增或编辑收货地址 /user/address/save</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">aid     </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   地址ID，当编辑地址时必需</td>
+</tr>
+<tr>
+<td align="left">name    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   收货人姓名</td>
+</tr>
+<tr>
+<td align="left">province</td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   省份ID</td>
+</tr>
+<tr>
+<td align="left">city    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   城市ID</td>
+</tr>
+<tr>
+<td align="left">address </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   收货地址</td>
+</tr>
+<tr>
+<td align="left">mobile  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   联系电话</td>
+</tr>
+<tr>
+<td align="left">phone   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   固话</td>
+</tr>
+<tr>
+<td align="left">email   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   邮箱</td>
+</tr>
+<tr>
+<td align="left">postcode</td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   邮政编码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "address": {
+              "name": "杨华",
+              "province": "110000",
+              "city": "110100",
+              "address": "北京市海淀区",
+              "mobile": "13333333333",
+              "phone": "",
+              "email": "",
+              "postcode": "",
+              "uid": "100001",
+              "uptime": 1387512957,
+              "addtime": 1387512957,
+              "id": 46
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>收货地址列表 /user/address/list</p>
+
+<ul>
+<li>请求方式： GET | POST</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "1",
+                  "uid": "100001",
+                  "name": "祁守艳",
+                  "province": "420000",
+                  "city": "420100",
+                  "address": "泰合广场802室",
+                  "mobile": "18611102888",
+                  "phone": "",
+                  "email": "",
+                  "postcode": "",
+                  "addtime": "1357354971",
+                  "uptime": "1357354980",
+                  "status": "2"
+              },
+              ...
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>设置默认收货地址</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id      </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   地址ID</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg" : "设置成功"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>积分兑换：申请、列表  /user/exchane  (undo)</p>
+
+<ul>
+<li>请求方式： GET | POST
+  参数名  |   类型    |   必需    |   说明
+  :---    |   :---:   |   :---:   |   :---</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>六、资金管理</strong></p>
+
+<ul>
+<li><p>获取用户资金信息 /user/funds/count</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+      {
+          "return": 1,
+          "data": {
+              "total": "260849.86", /*资金总额*/
+              "remain": "100341.97", /*资金余额*/
+              "amount": "85292.97", /*可用余额*/
+              "freeze": "15049.00", /*冻结金额*/
+              "wait_repay": "160507.89", /*待收总额*/
+              "recharge": "690485.23", /*充值总额*/
+              "avcredit": "100000.00" /*可用授信*/
+          }
+      }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取用户资金记录 /user/funds/record</p>
+
+<ul>
+<li><p>请求方式: GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   空或0代表所有记录类型</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   起始日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   结束日期，格式：2013-03-03</td>
+</tr>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "fid": "207388",
+                  "type": "提现冻结",
+                  "uid": "100008",
+                  "rid": "6158",
+                  "lid": "0",
+                  "tid": "0",
+                  "ruid": "0",
+                  "money": "-2000.00",
+                  "amount": "85292.97",
+                  "freeze": "15049.00",
+                  "remark": "",
+                  "addtime": "1383626469",
+                  "uptime": "0",
+                  "sync": "0",
+                  "pflag": "0",
+                  "status": "1",
+                  "datetime": "2013-11-05 12:41:09"
+              }
+          ],
+          "page": {
+              "size": 1,
+              "count": 675,
+              "total": 675,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 11,
+              "list": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+              ]
+          },
+          "in": "1482873.89",
+          "out": "1320772.87"
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取充值用户信息及配置 /user/recharge/info (可用余额、充值方式、充值银行列表等)</p>
+
+<ul>
+<li>请求方式：GET | POST</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "allow_offline": 1, /*是否有线下充值的权限,1-有,0-无*/
+          "user": {
+              "amount": "82992.97", /*可用余额*/
+              "avlscore": "8411.7" /*可用积分*/
+          },
+          "recharge": {
+              "fee_rate": "0.000" /*线上充值手续费率，默认为0*/
+          },
+          "offlinebank": { /*线下收款银行列表*/
+              "1": {
+                  "type": "线下工行",
+                  "code": "icbc",
+                  "bank": "武汉泰合支行 行号:829628",
+                  "name": "祁守艳",
+                  "account": "6222 0832 0200 5164 955"
+              },
+              "2": {
+                  "type": "线下建行",
+                  "code": "ccb",
+                  "bank": "武汉顺道街支行 行号:853011",
+                  "name": "祁守艳",
+                  "account": "6217 0028 7000 3895 966"
+              },
+              "3": {
+                  "type": "线下农行",
+                  "code": "abc",
+                  "bank": "武汉农业银行利济路分理处",
+                  "name": "祁守艳",
+                  "account": "6228 4800 5225 6325 318"
+              }
+          },
+          "banklist": { /*线上充值银行列表*/
+              "tenpay": "财付通账户",
+              "ccb": "建设银行",
+              "cmb": "招商银行",
+              "boc": "中国银行",
+              "comm": "交通银行",
+              "spdb": "浦发银行",
+              "cmbc": "民生银行",
+              "gdb": "广发银行",
+              "ceb": "光大银行",
+              "cib": "兴业银行",
+              "pab": "平安银行",
+              "bob": "北京银行",
+              "bea": "东亚银行"
+          },
+          "onlineypay": [
+              {
+                  "type": 2,
+                  "code": "tenpay",
+                  "name": "财付通"
+              }
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>线上充值 /user/recharge/online</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type        </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   第三方平台充值渠道，获取recharge/info上的onlinepay值，默认为3(财付通)</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   充值金额</td>
+</tr>
+<tr>
+<td align="left">bankid      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   充值银行，使用recharge/info返回的banklist值，如：icbc-工商银行,cmb-招商银行等</td>
+</tr>
+<tr>
+<td align="left">method      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   预留字段，充值方式，如：mobile、wap、web 等，默认为系统自动判断</td>
+</tr>
+<tr>
+<td align="left">paymethod   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   预留字段，如财付通账户支付等，默认为空</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<pre><code>  JSON：
+
+      --- 成功 ---
+      {
+          "return": 1,
+          "payurl": "/pay/online/tenpay?amount=100&amp;client=mobile",/*支付url，如果是相对url需要拼接*/
+          "msg": "请转到第三方支付平台继续下一步充值操作！"
+      }
+</code></pre></li>
+</ul>
+</li>
+<li><p>线下充值 /user/recharge/offline</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bankid      </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   线下收款银行ID</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   充值金额</td>
+</tr>
+<tr>
+<td align="left">name        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   汇款户名</td>
+</tr>
+<tr>
+<td align="left">no          </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   汇款流水号</td>
+</tr>
+<tr>
+<td align="left">account     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   汇款账号</td>
+</tr>
+<tr>
+<td align="left">desc        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   汇款说明</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<pre><code>  JSON：
+
+      --- 成功 ---
+      {
+          "return": 1,
+          "msg": "汇款提交成功，请等待后台确认!"
+      }
+
+      --- 失败 ---
+      {
+          "return": 0,
+          "errmsg": "汇款提交失败"
+      }
+</code></pre></li>
+</ul>
+</li>
+<li><p>充值记录 /user/recharge/record</p>
+
+<ul>
+<li><p>请求方式</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">status  </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   状态： 0-所有，1-失败，2-无效，11-充值中，12-待确认，21-充值成功，默认为0。</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   开始日期</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   截止日期</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "58998", /*充值编号*/
+                  "uid": "100001",
+                  "aid": "0",
+                  "type": "财付通", /*充值渠道*/
+                  "trade_no": "", /*交易号:银行易流水号*/
+                  "trade_account": "南京银行",/*充值银行，可以显示为：充值渠道-充值银行*/
+                  "money": "111.00", /*
+                  "fee": "0.00",
+                  "remark": "", /*备注*/
+                  "addtime": "1384070564", /*充值时间*/
+                  "oktime": "0", /*充值成功时间*/
+                  "addip": "111.174.172.44", /*充值ip*/
+                  "uptime": "0",
+                  "upip": "",
+                  "status": "11", /*状态值*/
+                  "statusname": "充值失败", /*状态*/
+                  "payurl": "/pay/online/tenpay?no=1888080800054649&amp;client=mobile", /*充值失败时没有此字段，支付url，如果是相对url需要拼接*/
+                  "oplist": [ /*如果oplist不为空，需显示操作按扭,点击在webview打开相应的网址，url若是相对的需拼接，并带session_key和client参数*/
+                      {
+                          "name": "支付", /*操作按扭名*/
+                          "url": "/pay/online/tenpay?no=1888080800054650&amp;bankid=icbc" /*操作url*/
+                      }
+                  ],
+
+                  "no": "1888080800058998", /*充值订单号*/
+                  "datetime": "2013-11-10 16:02:44" /*充值日期，可以直接取这个值显示*/
+              },
+              /*...*/
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取提现用户信息及配置 /user/drawcash/info (提现方式、手机费率、可提现金额等)</p>
+
+<ul>
+<li>请求方式：GET | POST</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "allow_quick": 1, /*是否有预约提现的权限，1-有,0-无*/
+          "methods": [/*提现方式*/
+              {
+                  "1": "汇付"
+              },
+              {
+                  "3": "财付通"
+              },
+              {
+                  "2": "预约"
+              }
+          ],
+          "fee_rate": { /*提现费率,method=&gt;rate，当值为对象{}时，要解析金额范围，取得手续费*/
+              "3": 2, /*手续费都是2元*/
+              "1": 2, /*手续费都是2元*/
+              "2": {
+                  "0-20000": 2, /*0到2w之间不含2w，手续费是2元*/
+                  "20000-50000": 3, /*2w到5w之间不含5w，手续费是3元*/
+                  "50000-0": 5 /*5w以上手续费是5元*/
+              },
+              "0": 2, /*手续费都是2元*/
+          },
+          "sfee_rate": 0.01, /*服务费费率，0.01即为1%，服务费=sfee_rate*(money-nofeedraw)*/
+          "user": {
+              "amount": "83092.97", /*可用余额*/
+              "feedraw": "83092.97", /*需收取服务费部分金额*/
+              "nofeedraw": "0.00", /*无需收取服务费部分金额*/
+              "okdraw": "83092.97", /*可提现总金额，包括收取服务费部分金额*/
+              "nodraw": "0.00" /*不可提现金额*/
+          },
+          "userbank": [ /*用户提现银行卡信息,isdef=1表示为默认，请参考银行卡管理*/
+              {
+                  id": "392",
+                  "isdef": "0",/*是否为默认银行1-是,0或空-否*/
+                  "uid": "100008",
+                  "name": "",/*开户名为空，表示是本人，目前只能绑定本人银行卡，所以不用管此字段*/
+                  "bank": "中国工商银行",/*开户银行*/
+                  "area": "0",/*开户省份*/
+                  "city": "0",/*开户城市*/
+                  "branch": "",/*开户支行名称*/
+                  "code": "icbc",/*银行标识码*/
+                  "card": "5201351451****1311",/*银行卡号*/
+                  "status": "11",
+                  "addtime": "1379079707",
+                  "uptime": "1379258161"
+              },
+          ],
+          "defbank": { /*默认提现银行卡，同上*/
+              "id": "393",
+              "isdef": "1",
+              "uid": "100008",
+              "name": "",
+              "bank": "招商银行",
+              "area": "0",
+              "city": "0",
+              "branch": "",
+              "code": "cmb",
+              "card": "52013****1234",
+              "status": "11",
+              "addtime": "1379125790",
+              "uptime": "1379258161"
+          },
+          "banklist": {
+              "icbc": "中国工商银行",
+              "ccb": "中国建设银行",
+              "cmb": "招商银行",
+              "abc": "中国农业银行",
+              "boc": "中国银行",
+              "comm": "中国交通银行",
+              "spdb": "上海浦东发展银行",
+              "cib": "兴业银行",
+              "bob": "北京银行",
+              "ceb": "中国光大银行",
+              "cmbc": "中国民生银行",
+              "citic": "中信实业银行",
+              "gdb": "广东发展银行",
+              "pab": "平安银行",
+              "sdb": "深圳发展银行",
+              "other": "其它银行"
+          }
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>计算提现申请信息 /user/drawcash/applyinfo (手续费、服务费、实际到账金额等)</p>
+
+<ul>
+<li><p>特别说明：此接口建议在用户填写完提现申请表单后再请求并显示，最后点击确认提现后再调用提现申请接口drawcash/apply进行提现</p></li>
+<li><p>请求方式：GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   提现金额</td>
+</tr>
+<tr>
+<td align="left">method      </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   提现方式，0-系统默认,1-汇付,2-预约,3-财付通，默认为0。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "fee": "0.00", /*提现手续费*/
+          "sfee": "1.00", /*提现服务费*/
+          "feedraw": "100.00", /*收取服务费提现金额*/
+          "realmoney": "99.00", /*实际到账金额*/
+          "avlscore": "8411.7", /*可用积分*/
+          "usescore": 160, /*需使用多少积分，如果此值为0，则不显示积分提现界面*/
+          "amount": "1000.00", /*用户可用余额*/
+      }
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "可用积分不足，无法使用积分提现"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>提现申请 /user/drawcash/apply</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">method      </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   提现方式，0-系统默认,1-汇付,2-预约,3-财付通，默认为0。</td>
+</tr>
+<tr>
+<td align="left">money       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   提现金额</td>
+</tr>
+<tr>
+<td align="left">paypwd      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   支付密码</td>
+</tr>
+<tr>
+<td align="left">usescore    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   当用户选择使用积分提现时需设置参数值为1</td>
+</tr>
+<tr>
+<td align="left">bankid      </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   提现银行卡ID</td>
+</tr>
+<tr>
+<td align="left">smscode     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   短信验证码，带上money参数通过/send/smscode/drawcash获取。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON：</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "提现申请成功，请等待处理"
+  }
+
+  {
+      "return": 1,
+      "msg": "点击确定后，将跳转到汇付天下进行下一步取现授权操作，如果取现授权操作失败，请于次日到一起好提现记录里再次进行汇付提现授权！",
+      "url": "/user/drawcash/pnr?id=6161" /*如果返回结果中含有url字段(url以/开头时，需拼接并带上session_key和client作为url参数)，则应alert(msg)，然后通过webview打开url，进行下一步操作*/
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "短信校验码不正确"
+  }
+
+  {
+      "return": 0,
+      "errmsg": "汇付新账户未激活",
+      "url": "/user/pnr" /*如果返回结果中含有url字段(url以/开头时，需拼接并带上session_key和client作为url参数)，则应alert(errmsg)，然后通过webview打开url，进行下一步操作*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>提现记录 /user/drawcash/record</p>
+
+<ul>
+<li><p>请求方式：GET | POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">status  </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   状态： 0-所有，1-失败，2-无效，3-已取消，11-等待处理，21-提现处理中，31-提现成功 （默认为0）</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   开始日期</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   截止日期</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "6663",/*编号*/
+                  "uid": "100001",
+                  "method": "2",
+                  "money": "111.00",/*提现金额*/
+                  "feedraw": "0.00",/*收取服务费部分金额*/
+                  "fee": "2.00",/*提现手续费*/
+                  "sfee": "0.00",/*提现服务费*/
+                  "score": "0.0",
+                  "name": "祁守艳",/*开户名*/
+                  "bank": "中国建设银行",/*提现银行*/
+                  "code": "ccb",/*提现银行标识码*/
+                  "area": "0",
+                  "city": "0",
+                  "branch": "",
+                  "card": "6217***********5966",/*提现银行卡号*/
+                  "addtime": "1387505461",
+                  "oktime": "0",
+                  "uptime": "0",
+                  "addip": "111.174.210.103",
+                  "upip": "",
+                  "remark": "",
+                  "aremark": "",
+                  "status": "11",
+                  "opurl": "/user/drawcash/pnr?id=6161",
+                  "oplist": [  /*如果oplist不为空，需显示操作按扭,点击在webview打开相应的网址，url若是相对的需拼接，并带session_key和client参数*/
+                      { 
+                          "name": "授权", /*操作按扭名*/
+                          "url": "/user/drawcash/pnr?id=6161" /*操作url*/
+                      }
+                  ],
+                  "datetime": "2013-12-20 10:11:01", /*提现时间*/
+                  "statusname": "等待处理" /*提现状态*/
+              },
+              /*...*/
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-获取银行卡信息 /user/drawcash/bank/info</p>
+
+<ul>
+<li><p>请求方式：GET</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "needbranch": [
+              "gdb",
+              "boc",
+              "ceb",
+              "cib",
+              "other"
+          ],
+          "list": [
+              {
+                  "id": "392",
+                  "isdef": "0",/*是否为默认银行1-是,0或空-否*/
+                  "uid": "100008",
+                  "name": "",/*开户名为空，表示是本人，目前只能绑定本人银行卡，所以不用管此字段*/
+                  "bank": "",
+                  "area": "0",/*开户省份*/
+                  "city": "0",/*开户城市*/
+                  "branch": "",/*开户支行名称*/
+                  "code": "icbc",/*银行标识码*/
+                  "card": "5201351451****1311",/*银行卡号*/
+                  "status": "11",
+                  "addtime": "1379079707",
+                  "uptime": "1379258161"
+              }
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-搜索支行名称 /user/drawcash/bank/search</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">city    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   城市ID</td>
+</tr>
+<tr>
+<td align="left">bank    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   银行标识</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": [
+          {
+              "no": "309100001194",
+              "branch": "兴业银行股份有限公司北京花园路支行"
+          },
+          /*...*/
+      ]
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-新增银行卡 /user/drawcash/bank/add</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   银行标识码</td>
+</tr>
+<tr>
+<td align="left">card    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   银行卡号</td>
+</tr>
+<tr>
+<td align="left">province</td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   支行省份ID，当银行标识码在bank/info返回的needbranch里面时，需要</td>
+</tr>
+<tr>
+<td align="left">city    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   支行城市ID，同上</td>
+</tr>
+<tr>
+<td align="left">bankname</td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   银行支行名称，同上</td>
+</tr>
+<tr>
+<td align="left">smscode </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   短信验证码，通过/send/smscode/bankcard获取</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg" : "添加银行卡成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "短信校验码不正确"
+      /*
+      "errmsg": "银行卡号不正确"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-编辑银行卡 /user/drawcash/bank/edit</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bankid  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   银行ID</td>
+</tr>
+<tr>
+<td align="left">code    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   银行标识码</td>
+</tr>
+<tr>
+<td align="left">card    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   银行卡号</td>
+</tr>
+<tr>
+<td align="left">province</td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   支行省份ID，当银行标识码在bank/info返回的needbranch里面时，需要</td>
+</tr>
+<tr>
+<td align="left">city    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   支行城市ID，同上</td>
+</tr>
+<tr>
+<td align="left">bankname</td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   银行支行名称，同上</td>
+</tr>
+<tr>
+<td align="left">smscode </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   短信验证码，通过/send/smscode/bankcard获取</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg" : "银行卡编辑成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "短信校验码不正确"
+      /*
+      "errmsg": "银行卡号不正确"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-设置默认银行卡 /user/drawcash/bank/setdef</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bankid  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   银行卡ID</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg"   : "设置成功"    
+  } 
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "参数错误"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>银行卡管理-删除银行卡 /user/drawcash/bank/del</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bankid  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   银行卡ID</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg"   : "银行卡删除成功"  
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "参数错误"
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>七、个人中心</strong></p>
+
+<ul>
+<li><p>获取用户基本资料 /user/info</p>
+
+<ul>
+<li><p>请求方式: GET</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "gender": "1", /*性别：1-男,2-女,0-未知*/
+          "birthdate": "1988-12-09", /*生日*/
+          "province": "310000", /*所在省份，格式参考：http://www.yiqihao.com/public/hao/js/data/tdist.js*/
+          "city": "310100", /*所在城市，格式参考：http://www.yiqihao.com/public/hao/js/data/tdist.js*/
+          "family_name": "张东", /*紧急联系人姓名*/
+          "family_phone": "1862118****", /*紧急联系人手机*/
+          "realname": "张旭", /*真实姓名*/
+          "avatar": "/public/upload/avatar/8/100008_avatar_200x200.jpg", /*头像地址*/
+          "idcard": "36072*********5251" /*身份证号码*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>修改用户基本资料 /user/info/edit (注：身份证号码idcard不在这里填写)</p>
+
+<ul>
+<li><p>请求方式: POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">realname    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   真实姓名</td>
+</tr>
+<tr>
+<td align="left">gender      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   性别：1-男,2-女</td>
+</tr>
+<tr>
+<td align="left">birthdate   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   生日，格式：1988-08-08</td>
+</tr>
+<tr>
+<td align="left">province    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   省份格式，参考：http://www.yiqihao.com/public/hao/js/data/tdist.js</td>
+</tr>
+<tr>
+<td align="left">city        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   城市格式，参考：http://www.yiqihao.com/public/hao/js/data/tdist.js</td>
+</tr>
+<tr>
+<td align="left">family_name </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   紧急联系人姓名</td>
+</tr>
+<tr>
+<td align="left">family_phone</td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   紧急联系人手机号码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "保存失败",
+  } 
+</code></pre></li>
+</ul>
+</li>
+<li><p>修改用户头像</p>
+
+<ol>
+<li> 直接上传裁剪后的头像 /user/avatar
+
+<ul>
+<li>请求方式： POST (type=file, name=avatar)</li>
+</ul>
+</li>
+</ol>
+
+
+<p>  或者</p>
+
+<ol>
+<li><p> 上传头像图片 /upload/avatar</p>
+
+<ul>
+<li>请求方式： POST (type=file, name=avatar_file)</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "name": "Desert.jpg",
+      "type": "jpeg",
+      "size": 845941,
+      "extension": "jpg",
+      "savename": "105342_tmp_avatar.jpg",
+      "width": 1024,
+      "height": 768,
+      "mime": "image/jpeg",
+      "saveurl": "/public/upload/tmp/avatar/105342_tmp_avatar.jpg"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p> 保存头像 /user/profile/edit/avatar</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<p>  参数名      |   类型    |   必需    |   说明
+  :---        |   :---:   |   :---:   |   :---
+  avatar      |   string  |   是      |   上一步返回的saveurl值 和 裁剪的坐标值如（/public/upload/tmp/avatar/105342_tmp_avatar.jpg:0,0,250,250,500,350）坐标值说明：
+  avatar.jpg:0,0,250,250,500,350 对应：x,y,w,h,src_w,src_h， 其中x,y是当前裁剪的坐标值，w,h是裁剪后的图片大小，src_w,src_h是当前图片实际显示的大小，可能比原图要小(比如缩略显示，1920x1280的图片在iphone5下实际显示大小为：960x640))。</p></li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+</code></pre></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>获取认证信息 /user/pauth/info</p>
+
+<ul>
+<li><p>请求方式： GET | POST</p></li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "idcard": "43020*********0038",
+          "auth_idcard": "1", /*auth_idcard为1表示身份已认证，为0表示未认证*/
+          "realname": "王俊钧",
+          "idcard_img": "", /*idcard_img不为空，且auth_idcard=0表示上传身份证正在审核认证中；auth_idcard=0表示认证失败*/
+          "umobile": "", /*手机号不为空表示已认证*/
+          "msg_bid_sms": "1", /*是否接收放款短信: 1-接收*/
+          "msg_repay_sms": "1", /*是否接收还款短信: 1-接收*/
+          "msg_push_sms": "1", /*是否接收推送短信：1-接收*/
+          "uemail": "***gjunjun558@163.com", /*邮箱不为空表示已认证*/
+          "use_auto_audit": "1" /*是否能使用自动认证，无需上传身份证照片*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>身份认证 /user/pauth/realname</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<p>  参数名  |   类型    |   必需    |   说明
+  :---    |   :---:   |   :---:   |   :---
+  method  |   int     |   是      |   认证方式（0：人工， 1：自动）
+  realname|   string  |   是      |   真实姓名
+  idcard  |   string  |   是      |   身份证号
+  idcard2 |   string  |   是      |   确认身份证号
+  说明： 人工认证需要上传身份证正反面</p></li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "身份证已存在"            
+      /*
+      "errmsg": "身份证不正确"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>手机认证    /user/pauth/mobile</p>
+
+<p>  第一步:</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">mobile  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   认证手机号</td>
+</tr>
+<tr>
+<td align="left">captcha </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   图形验证码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": 'xxxxxx'
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "手机号已存在"
+      /*
+      "errmsg": "验证码不正确"    
+      */
+  }
+</code></pre></li>
+</ul>
+
+
+<p>  第二步：</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">mobile  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   第一步中的手机号</td>
+</tr>
+<tr>
+<td align="left">smscode </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   第一步发送的手机验证码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ----
+  {
+      "return": 1,
+      "msg": "认证成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "短信校验码不正确"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>手机接受消息类型设置 /user/setmsg/mobile</p>
+
+<ul>
+<li><p>说明： 只有在手机已认证的情况下才有效</p></li>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名          </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">msg_bid_sms     </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   放款短信（为空时则表示不接收，1表示接收）</td>
+</tr>
+<tr>
+<td align="left">msg_repay_sms   </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   回款短信（同上）</td>
+</tr>
+<tr>
+<td align="left">msg_push_sms    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   推送短信（同上）</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "设置成功"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>邮箱认证 /user/pauth/email</p>
+
+<p>  第一步：</p>
+
+<ul>
+<li><p>请求方式：POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">email   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   邮箱</td>
+</tr>
+<tr>
+<td align="left">captcha </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   图形验证码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "发送认证邮件成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "邮箱不正确"
+      /*
+      "errmsg": "邮箱已存在"
+      "errmsg": "验证码不正确"
+      */
+  }
+</code></pre></li>
+</ul>
+
+
+<p>  第二步：</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">email   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   上一步填的邮箱</td>
+</tr>
+<tr>
+<td align="left">code    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   邮箱验证码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "认证成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "邮箱验证码错误"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>消息中心    /user/msg/ [history-历史消息 | doread-已读 | unread-未读]</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p></li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "list": [
+              {
+                  "id": "100",
+                  "uid": "0",
+                  "touid": "105342",
+                  "ctype": "0",
+                  "type": "回款",
+                  "title": "title",
+                  "msg": "msg",
+                  "status": "4",
+                  "tostatus": "6",
+                  "addtime": "1382882775",
+                  "uptime": "0",
+                  "datetime": "2013-10-27 22:06"
+              },
+              /*...*/
+          ],
+          "page": {},/*参考一、公共参数里的page字段*/
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>登录日志 /user/loginlog/list</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+<tr>
+<td align="left">sdate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   开始日期</td>
+</tr>
+<tr>
+<td align="left">edate   </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   截止日期</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "page": {
+              "size": 10,
+              "count": 11,
+              "total": 2,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 2,
+              "list": [
+                  1,
+                  2
+              ]
+          },
+          "list": [
+              {
+                  "id": "211256",
+                  "uid": "105342",
+                  "login_time": "1387510695",
+                  "login_ip": "111.173.9.13",
+                  "logout_time": "0",
+                  "status": "1",
+                  "login_date": "2013-12-20 11:38:15",
+                  "logout_date": "",
+                  "login_area": "湖北省武汉市 "
+              },
+              ...
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>八、贷款管理</strong></p>
+
+<ul>
+<li><p>我的贷款 /user/loan/all</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "page": {
+              "size": 10,
+              "count": 13,
+              "total": 2,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 2,
+              "list": [
+                  1,
+                  2
+              ]
+          },
+          "list": [
+              {
+                  "lid": "101719",
+                  "plid": "101689",
+                  "uid": "100001",
+                  "aid": "16",
+                  "title": "普通标测试2",
+                  "img": "/public/hao/themes/default/images/loan/8.jpg",
+                  "type": "1",
+                  "is_flow": "0",
+                  "is_field": "1",
+                  "is_plan": "1",
+                  "is_okout": "0",
+                  "is_newbie": "0",
+                  "no_captcha": "0",
+                  "use_type": "1",
+                  "amount": "10000000",
+                  "remain_amount": "0.00",
+                  "return_amount": "0.00",
+                  "repay_num": "0",
+                  "late_fee": "0.00",
+                  "early_fee": "0.00",
+                  "fee_rate": "0.0",
+                  "mfee_rate": "0.50",
+                  "field_fee": "0.00",
+                  "credit_fee": "0.00",
+                  "other_fee": "0.00",
+                  "tender_amount": "0",
+                  "flow_amount": "0",
+                  "repo_amount": "0",
+                  "flow_date": "20130807",
+                  "tender_min": "100",
+                  "tender_max": "0",
+                  "tender_limit_times": "0",
+                  "tender_count": "0",
+                  "tender_begin": "1391758200",
+                  "tender_end": "0",
+                  "deadline": "6",
+                  "deadline_type": "m",
+                  "days": "0",
+                  "apr": "22.40",
+                  "reward_apr": "0.00",
+                  "reward_money": "0",
+                  "repay_method": "e",
+                  "progress": "0",
+                  "exptime": "3",
+                  "begintime": "0",
+                  "endtime": "0",
+                  "status": "35",
+                  "ostatus": "1",
+                  "auto": "0",
+                  "description": "流转1000万测试",
+                  "remark": "",
+                  "lrealname": "王小五",
+                  "lidcard": "11010119800101779X",
+                  "lno": "",
+                  "addtime": "1387174341",
+                  "uptime": "1387174564",
+                  "paytime": "0",
+                  "fulldate": "1970-01-01 08:00",
+                  "begindate": "1970-01-01 08:00:00",
+                  "tender_begindate": "2014-02-07 15:30",
+                  "remaintime": "",
+                  "credit_star": 0,
+                  "repay_method_name": "到期还本息",
+                  "use_type_name": "短期周转",
+                  "statusname": "待发布"
+              },
+              ...
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>已还清贷款 /user/repay/ok</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "page": {
+              "size": 10,
+              "count": 13,
+              "total": 2,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 2,
+              "list": [
+                  1,
+                  2
+              ]
+          },
+          "list": [
+              {
+                  "lid": "100575",
+                  "plid": "100443",
+                  "uid": "100001",
+                  "aid": "8",
+                  "title": "短期站内周转25万",
+                  "img": "8",
+                  "type": "1",
+                  "is_flow": "0",
+                  "is_field": "1",
+                  "is_plan": "1",
+                  "is_okout": "0",
+                  "is_newbie": "0",
+                  "no_captcha": "0",
+                  "use_type": "1",
+                  "amount": "250000",
+                  "remain_amount": "0.00",
+                  "return_amount": "261375.00",
+                  "repay_num": "2",
+                  "late_fee": "0.00",
+                  "early_fee": "0.00",
+                  "fee_rate": "0.0",
+                  "mfee_rate": "0.50",
+                  "field_fee": "0.00",
+                  "credit_fee": "0.00",
+                  "other_fee": "0.00",
+                  "tender_amount": "250000",
+                  "flow_amount": "0",
+                  "repo_amount": "0",
+                  "flow_date": "0",
+                  "tender_min": "0",
+                  "tender_max": "0",
+                  "tender_limit_times": "0",
+                  "tender_count": "35",
+                  "tender_begin": "1362294003",
+                  "tender_end": "1362294017",
+                  "deadline": "2",
+                  "deadline_type": "m",
+                  "days": "0",
+                  "apr": "21.30",
+                  "reward_apr": "0.00",
+                  "reward_money": "0",
+                  "repay_method": "i",
+                  "progress": "100",
+                  "exptime": "1362553203",
+                  "begintime": "1362294035",
+                  "endtime": "1367549310",
+                  "status": "51",
+                  "ostatus": "1",
+                  "auto": "1",
+                  "description": "站内周转，已投标25万：&lt;a href=\"https://www.yiqihao.com/loan/detail/100440\"&gt;https://www.yiqihao.com/loan/detail/100440&lt;/a&gt;",
+                  "remark": "",
+                  "lrealname": "",
+                  "lidcard": "",
+                  "lno": "",
+                  "addtime": "1362284504",
+                  "uptime": "1362294017",
+                  "paytime": "1367549310",
+                  "okdate": "2013-05-03",
+                  "statusname": "准时还清"
+              },
+              ...
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>待偿还贷款 /user/repay/list</p>
+
+<ul>
+<li><p>请求方式： POST|GET</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名  </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">size    </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   分页大小, 默认为：10，取值：1~50</td>
+</tr>
+<tr>
+<td align="left">p       </td>
+<td align="center">   int     </td>
+<td align="center">   否      </td>
+<td align="left">   页码，默认为：1</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "page": {
+              "size": 10,
+              "count": 13,
+              "total": 2,
+              "now": 1,
+              "prev": 0,
+              "next": 2,
+              "up": 1,
+              "down": 2,
+              "list": [
+                  1,
+                  2
+              ]
+          },
+          "list": [
+              {
+                  "lid": "101709",
+                  "plid": "101691",
+                  "uid": "100001",
+                  "aid": "16",
+                  "title": "流转1000万测试四",
+                  "img": "8",
+                  "type": "34",
+                  "is_flow": "1",
+                  "is_field": "1",
+                  "is_plan": "1",
+                  "is_okout": "0",
+                  "is_newbie": "0",
+                  "no_captcha": "0",
+                  "use_type": "1",
+                  "amount": "10000",
+                  "remain_amount": "0.00",
+                  "return_amount": "0.00",
+                  "repay_num": "0",
+                  "late_fee": "0.00",
+                  "early_fee": "0.00",
+                  "fee_rate": "0.0",
+                  "mfee_rate": "0.50",
+                  "field_fee": "0.00",
+                  "credit_fee": "0.00",
+                  "other_fee": "0.00",
+                  "tender_amount": "0",
+                  "flow_amount": "0",
+                  "repo_amount": "0",
+                  "flow_date": "20131203",
+                  "tender_min": "100",
+                  "tender_max": "0",
+                  "tender_limit_times": "0",
+                  "tender_count": "0",
+                  "tender_begin": "1387693620",
+                  "tender_end": "0",
+                  "deadline": "6",
+                  "deadline_type": "m",
+                  "days": "0",
+                  "apr": "22.40",
+                  "reward_apr": "0.00",
+                  "reward_money": "0",
+                  "repay_method": "e",
+                  "progress": "0",
+                  "exptime": "3",
+                  "begintime": "0",
+                  "endtime": "0",
+                  "status": "35",
+                  "ostatus": "1",
+                  "auto": "0",
+                  "description": "流转1000万测试",
+                  "remark": "",
+                  "lrealname": "王小五",
+                  "lidcard": "11010119800101779X",
+                  "lno": "",
+                  "addtime": "1386039298",
+                  "uptime": "1386039690",
+                  "paytime": "0",
+                  "repay_amount": 11120,
+                  "manage_fee": "50.00",
+                  "repay_date": "2014-01-03"
+              },
+              ...
+          ]
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>贷款统计 /user/loan/stat</p>
+
+<ul>
+<li>请求方式： POST|GET</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": {
+          "post_times": "13",
+          "borrow_amount": "520000.00",
+          "borrow_times": "4",
+          "return_amount": "524386.67",
+          "remain_amount": "33716033.71",
+          "loan_fee": "1800600.00",
+          "return_times": "3",
+          "remain_times": "1",
+          "system_times": "0"
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>个人详细信息 /user/profile</p>
+
+<ul>
+<li>请求方式： POST|GET</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  {
+      "return": 1,
+      "data": {
+          "uid": "100001",
+          "auth_realname": "0",
+          "auth_mobile": "1",
+          "auth_email": "1",
+          "auth_avatar": "0",
+          "gender": "1",
+          "auth_gender": "0",
+          "birthdate": "1979-04-07",
+          "auth_birthdate": "0",
+          "idcard_province": "420000",
+          "idcard_city": "420900",
+          "province": "420000",
+          "city": "420100",
+          "district": "0",
+          "address": "泰合广场802室",
+          "auth_address": "0",
+          "address_phone": "027-6666****",
+          "auth_address_phone": "0",
+          "education": "3",
+          "auth_education": "0",
+          "graduated_year": "0",
+          "auth_graduated_year": "0",
+          "graduated_school": "",
+          "auth_graduated_school": "0",
+          "marriage": "1",
+          "auth_marriage": "0",
+          "have_child": "1",
+          "auth_have_child": "0",
+          "have_house": "1",
+          "auth_have_house": "1",
+          "house_loan": "2",
+          "auth_house_loan": "0",
+          "have_car": "1",
+          "auth_have_car": "0",
+          "car_brand": "",
+          "auth_car_brand": "0",
+          "car_year": "0",
+          "auth_car_year": "0",
+          "car_loan": "2",
+          "auth_car_loan": "0",
+          "job_company": "武汉一起好",
+          "auth_job_company": "0",
+          "job_type": "2",
+          "auth_job_type": "0",
+          "job_company_type": "8",
+          "auth_job_company_type": "0",
+          "job_company_scale": "2",
+          "auth_job_company_scale": "0",
+          "job_industry": "2",
+          "auth_job_industry": "0",
+          "job_title": "CEO",
+          "auth_job_title": "0",
+          "job_salary": "4",
+          "auth_job_salary": "0",
+          "job_years": "1",
+          "auth_job_years": "0",
+          "job_email": "qishouyan@qq.com",
+          "auth_job_email": "0",
+          "job_province": "420000",
+          "auth_job_province": "0",
+          "job_city": "420100",
+          "auth_job_city": "0",
+          "job_company_address": "泰合广场",
+          "auth_job_company_address": "0",
+          "job_company_phone": "027-8557****",
+          "auth_job_company_phone": "0",
+          "family_name": "祁守津",
+          "auth_family_name": "0",
+          "family_who": "兄弟",
+          "auth_family_who": "0",
+          "family_phone": "1867403****",
+          "auth_family_phone": "0",
+          "other_name": "张东",
+          "auth_other_name": "0",
+          "other_who": "好友",
+          "auth_other_who": "0",
+          "other_phone": "1861233****",
+          "auth_other_phone": "0",
+          "addtime": "1348796075",
+          "uptime": "1350743687",
+          "status": "11",
+          "realname": "祁守艳",
+          "avatar": "/public/upload/avatar/1/100001_avatar_200x200.jpg",
+          "idcard": "42098*********7518"
+      }
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>个人详细资料修改 /user/profile/edit/info</p>
+
+<ul>
+<li>说明： 相关下拉列表的值请参考网页版</li>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">gender      </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   性别</td>
+</tr>
+<tr>
+<td align="left">idcard      </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   身份证号</td>
+</tr>
+<tr>
+<td align="left">birthdate   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   出生日期</td>
+</tr>
+<tr>
+<td align="left">education   </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   学历，1-高中及一下，2-大专，3-本科，4-研究生及以上</td>
+</tr>
+<tr>
+<td align="left">graduated_year  </td>
+<td align="center">   string  </td>
+<td align="center">   否  </td>
+<td align="left">   毕业年份</td>
+</tr>
+<tr>
+<td align="left">graduated_school</td>
+<td align="center">   string  </td>
+<td align="center">   否  </td>
+<td align="left">   毕业学校</td>
+</tr>
+<tr>
+<td align="left">marriage    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   婚姻状况，1-已婚，2-离异，3-未婚</td>
+</tr>
+<tr>
+<td align="left">have_child  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   有无子女，1-有，2-无</td>
+</tr>
+<tr>
+<td align="left">have_house  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   是否有房，1-有，2-无</td>
+</tr>
+<tr>
+<td align="left">house_loan  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   有无房贷，1-有，2-无</td>
+</tr>
+<tr>
+<td align="left">have_car    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   是否有车，1-有，2-无</td>
+</tr>
+<tr>
+<td align="left">car_loan    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   有无车贷，1-有，2-无</td>
+</tr>
+<tr>
+<td align="left">idcard_province </td>
+<td align="center">   int </td>
+<td align="center">   是      </td>
+<td align="left">   户籍省份</td>
+</tr>
+<tr>
+<td align="left">idcard_city     </td>
+<td align="center">   int </td>
+<td align="center">   是      </td>
+<td align="left">   户籍城市</td>
+</tr>
+<tr>
+<td align="left">province    </td>
+<td align="center">   int </td>
+<td align="center">   是      </td>
+<td align="left">   居住省份</td>
+</tr>
+<tr>
+<td align="left">city        </td>
+<td align="center">   int </td>
+<td align="center">   是      </td>
+<td align="left">   居住城市</td>
+</tr>
+<tr>
+<td align="left">address     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   住宅地址</td>
+</tr>
+<tr>
+<td align="left">address_phone</td>
+<td align="center">  string  </td>
+<td align="center">   是      </td>
+<td align="left">   住宅电话</td>
+</tr>
+<tr>
+<td align="left">avatar      </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   头像</td>
+</tr>
+<tr>
+<td align="left">avatar_file </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   头像文件</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "身份证已存在"
+      /*
+      "errmsg": "XX不正确"                
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>工作信息修改 /user/profile/edit/job</p>
+
+<ul>
+<li>说明： 相关下拉列表的值请参考网页版</li>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型        </th>
+<th align="center">   必需        </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">job_company </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   公司名称</td>
+</tr>
+<tr>
+<td align="left">job_type    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   职业类型</td>
+</tr>
+<tr>
+<td align="left">job_province</td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   工作省份</td>
+</tr>
+<tr>
+<td align="left">job_city    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   工作城市</td>
+</tr>
+<tr>
+<td align="left">job_company_type    </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   公司类别</td>
+</tr>
+<tr>
+<td align="left">job_industry        </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   公司行业</td>
+</tr>
+<tr>
+<td align="left">job_company_scale   </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   公司规模</td>
+</tr>
+<tr>
+<td align="left">job_title   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   职位</td>
+</tr>
+<tr>
+<td align="left">job_salary  </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   月收入</td>
+</tr>
+<tr>
+<td align="left">job_years   </td>
+<td align="center">   int     </td>
+<td align="center">   是      </td>
+<td align="left">   工作年限</td>
+</tr>
+<tr>
+<td align="left">job_company_phone   </td>
+<td align="center">   string  </td>
+<td align="center">   是  </td>
+<td align="left">   公司电话</td>
+</tr>
+<tr>
+<td align="left">job_email           </td>
+<td align="center">   string  </td>
+<td align="center">   是  </td>
+<td align="left">   工作邮箱</td>
+</tr>
+<tr>
+<td align="left">job_company_address </td>
+<td align="center">   string  </td>
+<td align="center">   是  </td>
+<td align="left">   公司地址</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "XX不正确"                
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>联系人信息修改  /user/profile/edit/contact</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">family_name </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   联系人</td>
+</tr>
+<tr>
+<td align="left">family_who  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   关系</td>
+</tr>
+<tr>
+<td align="left">family_phone</td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   电话</td>
+</tr>
+<tr>
+<td align="left">other_name  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   其它联系人</td>
+</tr>
+<tr>
+<td align="left">other_who   </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   关系</td>
+</tr>
+<tr>
+<td align="left">other_phone </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   电话</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "XX不正确"                
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>修改登录密码    /user/password/edit/login</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">password    </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   原登录密码</td>
+</tr>
+<tr>
+<td align="left">newpassword </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   新密码</td>
+</tr>
+<tr>
+<td align="left">newpassword2</td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   重复新密码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "修改成功"
+  }
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "原登录密码不正确"
+      /*
+      "errmsg": "新登录密码和旧密码不能相同"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>修改支付密码  /user/password/edit/pay</p>
+
+<ul>
+<li><p>请求方式： POST</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名          </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">login_password  </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   登录密码</td>
+</tr>
+<tr>
+<td align="left">password        </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   原支付密码</td>
+</tr>
+<tr>
+<td align="left">newpassword     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   新支付密码</td>
+</tr>
+<tr>
+<td align="left">newpassword2    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   重复新支付密码</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果： JSON</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "修改成功"
+  }
+
+  --- 失败 ---
+  {
+      "return": 0,
+      "errmsg": "登录密码不正确"
+      /*
+      "errmsg": "原支付密码不正确"            
+      "errmsg": "新支付密码和旧支付密码不能相同"
+      "errmsg": "支付密码必须和登录密码不一样"
+      */
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>九、移动客户端相关</strong></p>
+
+<ul>
+<li><p>获取移动端图片广告 /get/mbanner</p>
+
+<ul>
+<li><p>请求方式: GET</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "data": [
+          {
+              "img": "http://yiqihao.com/public/img/mobile/banner/1.jpg", /*广告图片地址*/
+              "url": "http://bbs.yiqihao.com" /*广告链接*/
+          },
+          {
+              "img": "http://yiqihao.com/public/img/mobile/banner/1.jpg",
+              "url": "http://bbs.yiqihao.com"
+          },
+          {
+              "img": "http://yiqihao.com/public/img/mobile/banner/1.jpg",
+              "url": "http://bbs.yiqihao.com"
+          }
+      ],
+      "mtime": 1387200975 /*更新时间，可以在客户端保存此时间，如果时间一样，则不用更新广告*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>获取客户端好评网址 /mobile/review</p>
+
+<ul>
+<li><p>请求方式: GET | POST (需带上公共的client参数)</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "url": "http://www.yiqihao.com" /*当url不为空的时候，表示要跳转好评url*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>客户端反馈 /mobile/feedback</p>
+
+<ul>
+<li><p>请求方式: POST (需带上公共的client参数)</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">content     </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   反馈内容</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "反馈成功"
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>客户端检查版本更新 /mobile/version</p>
+
+<ul>
+<li><p>请求方式: GET | POST (需带上公共的client参数)</p></li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "version": "1.0.0", /*当返回的版本号和客户端现有版本号不一样时需要提示有新版本更新*/
+      "url": "" /*当url不为空时，表示有新版本更新,ios可以转到appstore，android可以直接通过url下载apk*/
+  }
+</code></pre></li>
+</ul>
+</li>
+<li><p>客户端设备标识记录 /mobile/device/[platform] platform可以是ios,android等</p>
+
+<ul>
+<li><p>请求方式: GET | POST (需带上公共的client参数)</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名      </th>
+<th align="center">   类型    </th>
+<th align="center">   必需    </th>
+<th align="left">   说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">token       </td>
+<td align="center">   string  </td>
+<td align="center">   是      </td>
+<td align="left">   客户端设备令牌，如：ios的device_token</td>
+</tr>
+<tr>
+<td align="left">platform    </td>
+<td align="center">   string  </td>
+<td align="center">   否      </td>
+<td align="left">   可以是：ios,android,winphone等</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>返回结果：JSON | XML</p>
+
+<p>  JSON:</p>
+
+<pre><code>  --- 成功 ---
+  {
+      "return": 1,
+      "msg": "保存成功"
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<p><strong>附录一、贷款相关计算公式</strong></p>
+
+<ul>
+<li><p>投标多少元可获得多少收益</p>
+
+<pre><code>      money  = 100; // 投标金额
+      apr = 24; // 年利率%
+      deadline = 12; // 贷款期限
+
+      monthApr = apr/12/100; // 月利率
+      当repay_method=m(等额本息)时，
+      interest = money * monthApr * pow((1+monthApr), deadline) / (i-1) * deadline - money;
+
+      当repay_method=i(按月付息，到期还本)或e(到期还本息)时,
+      interest = money * monthApr * deadline;
+</code></pre></li>
+</ul>
+
+</body>
+</html>
