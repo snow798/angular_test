@@ -1,0 +1,23 @@
+/* Empty. Add your own CSS if you like */
+ion-content { background-color: #95a5a6;}
+.main_loanList { min-height: 120px; margin-top: -11px;}
+.slider-slides { min-height: 120px;}
+.slider-slide { min-height: 120px;}
+.slider-slide .box { min-height: 120px;}
+.slider-slide .card { margin:0 0px; box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25); height: 160px;}
+.slider-slide .card .item-avatar { padding: 0;}
+
+.m_title { padding-left: 120px; margin-top: 20px;}
+.m_title_t { padding-left: 20px; height: 30px; margin-top: 10px; border-bottom: 1px solid #EEE9E9;}
+#main_pic_a { margin-top: 0px; margin-right: 2%; }
+#main_pic_a .highcharts-series-group { margin-top: -10px;}
+#main_pic_a .highcharts-title .title { position: absolute; top: -30px;
+    left: -20px;}
+
+.main_loaninfo { height: 80px; padding-top: 30px;}
+.main_loaninfo li { float: left; margin-right: 0; margin-left: 2%;}
+.main_loaninfo li span { font-size: 24px;}
+.main_loaninfo li p { margin-top: 7px;}
+
+.main_loanList .slider-pager { position: absolute; top: 139px;}
+.main_loanList .slider-pager .active { color: #EF4E3A;}

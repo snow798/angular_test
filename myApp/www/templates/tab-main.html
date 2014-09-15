@@ -1,0 +1,60 @@
+
+<ion-view title="Welcome">
+    <ion-content class="has-header">
+       <!-- banner-->
+        <div ng-controller="main_slideBox"   d-flesslide="true"></div>
+        <div ng-controller="main_loanList" class="main_loanList">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" style="min-height: 120px;">
+                <ion-slide>
+                    <div class="list card">
+
+                        <div class="item item-avatar">
+                            <div class="m_title_t"><h2>某某借款</h2></div>
+                            <div ng-controller="main_showListimg" class="main_showListimg">
+                                <chart id="main_pic_a"
+                                       chartdata="pieChartData"
+                                       type="pie" style="height:140px; width: 100px; float: left; font-size: 14px;"
+                                       titleicon="<span style='font-size:8px;'>已完成</span><br/>45%"
+                                       titlecolor="rgba(189,189,189,0.5)"
+                                       titleimagetop="-30px"
+                                       titleimageleft="50px"></chart>
+                            </div>
+                            <ul class="main_loaninfo">
+                                <li>
+                                    <span>17%</span>
+                                    <p>年利率</p>
+                                </li>
+                                <li>
+                                    <span>12</span>
+                                    <p>期限</p>
+                                </li>
+                                <li>
+                                    <span>2014.6.8</span>
+                                    <p>满额时间</p>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="box yellow"><h1>YELLOW</h1></div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="box pink"><h1>PINK</h1></div>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+
+    </ion-content>
+</ion-view>
+
+
+
+
+
+
+
